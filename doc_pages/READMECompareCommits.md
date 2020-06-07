@@ -1,3 +1,5 @@
+@mainpage
+
 CompareCommits
 ========
 
@@ -74,7 +76,7 @@ Usage
 - --version prints version of program
 - The output file name can be without argument
 
-### Methods(advanced)
+### Methods (advanced)
 #### CommitCompareAllZip
 Compares all zips in given folder, gets two commits and passes to CompareTwoCommits for calculation, adds result to matrix.
 ##### Parameters

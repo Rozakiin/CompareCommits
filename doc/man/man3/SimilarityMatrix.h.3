@@ -1,0 +1,61 @@
+.TH "SimilarityMatrix.h" 3 "Sat May 30 2020" "Version 1.0" "CompareCommits" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SimilarityMatrix.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stddef\&.h>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <map>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <utility>\fP
+.br
+\fC#include <vector>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSimilarityMatrix\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef std::map< std::string, size_t > \fBHASHINDEX_MAP\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBSimilarityMatrix\fP &m)"
+.br
+.RI "I/O stream operators\&. "
+.ti -1c
+.RI "std::istream & \fBoperator>>\fP (std::istream &is, \fBSimilarityMatrix\fP &m)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef std::map<std::string, size_t> \fBHASHINDEX_MAP\fP"
+
+.SH "Function Documentation"
+.PP 
+.SS "std::ostream& operator<< (std::ostream & os, const \fBSimilarityMatrix\fP & m)\fC [inline]\fP"
+
+.PP
+I/O stream operators\&. 
+.SS "std::istream& operator>> (std::istream & is, \fBSimilarityMatrix\fP & m)"
+remove leading and trailing whitespace
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for CompareCommits from the source code\&.

@@ -1,0 +1,223 @@
+\hypertarget{classCompareCommits}{}\doxysection{Compare\+Commits Class Reference}
+\label{classCompareCommits}\index{CompareCommits@{CompareCommits}}
+
+
+a class to compare commits and create a N\+E\+X\+US file representing the distance matrix.  
+
+
+
+
+{\ttfamily \#include $<$Compare\+Commits.\+h$>$}
+
+Inheritance diagram for Compare\+Commits\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classCompareCommits}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual double \mbox{\hyperlink{classCompareCommits_a32127a3b0ed9cdb4989edfacf51f8f63}{Compare\+Two\+Commits}} (std\+::string commit\+\_\+path, std\+::string commit1\+\_\+path, std\+::string commit2\+\_\+path, std\+::string commit1\+\_\+filename, std\+::string commit2\+\_\+filename, std\+::string repo\+\_\+name=\char`\"{}\char`\"{})=0
+\begin{DoxyCompactList}\small\item\em a pure virtual member, calculates the difference between two files. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCompareCommits_a290b1632565898f75a05124d68a3fd13}{Commit\+Compare\+All\+Zip}} (std\+::string filename, std\+::string commit\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Compares all zips in given folder, gets two commits and passes to Compare\+Two\+Commits for calculation, adds result to \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCompareCommits_a9c03ab4103a7f9d63e9f820ed311b270}{Commit\+Compare\+All\+Git}} (std\+::string filename, std\+::string repo\+\_\+name, std\+::string repo\+\_\+path, std\+::string commit\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Compares all commits, gets two commits and passes to Compare\+Two\+Commits for calculation, adds result to \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCompareCommits_a422da23c4ff3f08d173b58d19a3ec498}{Commit\+Compare\+Vector}} (std\+::string filename, std\+::string repo\+\_\+name, std\+::string commit\+\_\+path, std\+::vector$<$ std\+::string $>$ \&commits)
+\begin{DoxyCompactList}\small\item\em Compares all commits in vector, gets two commits and passes to Compare\+Two\+Commits for calculation, adds result to \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCompareCommits_a17176e86474e8b2992e4321a4398f166}{Commit\+Compare\+Start\+End}} (std\+::string filename, std\+::string repo\+\_\+name, std\+::string repo\+\_\+path, std\+::string commit\+\_\+path, std\+::string start\+\_\+commit\+\_\+hash, std\+::string end\+\_\+commit\+\_\+hash)
+\begin{DoxyCompactList}\small\item\em Gets all commits between start and end commits and adds to vector, passes to Commit\+Compare\+Vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCompareCommits_a0b185b2925ec15f09e5bdfa82dd07915}\label{classCompareCommits_a0b185b2925ec15f09e5bdfa82dd07915}} 
+virtual \mbox{\hyperlink{classCompareCommits_a0b185b2925ec15f09e5bdfa82dd07915}{$\sim$\+Compare\+Commits}} ()
+\begin{DoxyCompactList}\small\item\em a virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCompareCommits_aa89929f206fda1b1398b1d1c3207a67a}\label{classCompareCommits_aa89929f206fda1b1398b1d1c3207a67a}} 
+static constexpr double \mbox{\hyperlink{classCompareCommits_aa89929f206fda1b1398b1d1c3207a67a}{Version\+No}} = C\+O\+M\+P\+A\+R\+E\+C\+O\+M\+M\+I\+T\+S\+\_\+\+V\+E\+R\+S\+I\+ON
+\begin{DoxyCompactList}\small\item\em a public variable to store the version number of the class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+a class to compare commits and create a N\+E\+X\+US file representing the distance matrix. 
+
+Definition at line 35 of file Compare\+Commits.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCompareCommits_a9c03ab4103a7f9d63e9f820ed311b270}\label{classCompareCommits_a9c03ab4103a7f9d63e9f820ed311b270}} 
+\index{CompareCommits@{CompareCommits}!CommitCompareAllGit@{CommitCompareAllGit}}
+\index{CommitCompareAllGit@{CommitCompareAllGit}!CompareCommits@{CompareCommits}}
+\doxysubsubsection{\texorpdfstring{CommitCompareAllGit()}{CommitCompareAllGit()}}
+{\footnotesize\ttfamily int Compare\+Commits\+::\+Commit\+Compare\+All\+Git (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{std\+::string}]{repo\+\_\+name,  }\item[{std\+::string}]{repo\+\_\+path,  }\item[{std\+::string}]{commit\+\_\+path }\end{DoxyParamCaption})}
+
+
+
+Compares all commits, gets two commits and passes to Compare\+Two\+Commits for calculation, adds result to \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & full path to the directory containing the zipped commits \\
+\hline
+{\em repo\+\_\+name} & name given to repository on Git\+Hub \\
+\hline
+{\em repo\+\_\+path} & full path to repository directory \\
+\hline
+{\em commit\+\_\+path} & full path to commit directory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 success or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 137 of file Compare\+Commits.\+cpp.
+
+
+
+References Similarity\+Matrix\+::add(), Compare\+Two\+Commits(), and Similarity\+Matrix\+::\+Nexus\+Out().
+
+\mbox{\Hypertarget{classCompareCommits_a290b1632565898f75a05124d68a3fd13}\label{classCompareCommits_a290b1632565898f75a05124d68a3fd13}} 
+\index{CompareCommits@{CompareCommits}!CommitCompareAllZip@{CommitCompareAllZip}}
+\index{CommitCompareAllZip@{CommitCompareAllZip}!CompareCommits@{CompareCommits}}
+\doxysubsubsection{\texorpdfstring{CommitCompareAllZip()}{CommitCompareAllZip()}}
+{\footnotesize\ttfamily int Compare\+Commits\+::\+Commit\+Compare\+All\+Zip (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{std\+::string}]{commit\+\_\+path }\end{DoxyParamCaption})}
+
+
+
+Compares all zips in given folder, gets two commits and passes to Compare\+Two\+Commits for calculation, adds result to \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & full path to the directory containing the zipped commits \\
+\hline
+{\em commit\+\_\+path} & full path to commit directory \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 success or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 24 of file Compare\+Commits.\+cpp.
+
+
+
+References Similarity\+Matrix\+::add(), Compare\+Two\+Commits(), and Similarity\+Matrix\+::\+Nexus\+Out().
+
+\mbox{\Hypertarget{classCompareCommits_a17176e86474e8b2992e4321a4398f166}\label{classCompareCommits_a17176e86474e8b2992e4321a4398f166}} 
+\index{CompareCommits@{CompareCommits}!CommitCompareStartEnd@{CommitCompareStartEnd}}
+\index{CommitCompareStartEnd@{CommitCompareStartEnd}!CompareCommits@{CompareCommits}}
+\doxysubsubsection{\texorpdfstring{CommitCompareStartEnd()}{CommitCompareStartEnd()}}
+{\footnotesize\ttfamily int Compare\+Commits\+::\+Commit\+Compare\+Start\+End (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{std\+::string}]{repo\+\_\+name,  }\item[{std\+::string}]{repo\+\_\+path,  }\item[{std\+::string}]{commit\+\_\+path,  }\item[{std\+::string}]{start\+\_\+commit\+\_\+hash,  }\item[{std\+::string}]{end\+\_\+commit\+\_\+hash }\end{DoxyParamCaption})}
+
+
+
+Gets all commits between start and end commits and adds to vector, passes to Commit\+Compare\+Vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & full path to the directory containing the zipped commits \\
+\hline
+{\em repo\+\_\+name} & name given to repository on Git\+Hub \\
+\hline
+{\em repo\+\_\+path} & full path to repository directory \\
+\hline
+{\em commit\+\_\+path} & full path to commit directory \\
+\hline
+{\em start\+\_\+commit\+\_\+hash} & the long hash value for the start commit \\
+\hline
+{\em end\+\_\+commit\+\_\+hash} & the long hash value for the end commit \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 success or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 436 of file Compare\+Commits.\+cpp.
+
+
+
+References Commit\+Compare\+Vector().
+
+\mbox{\Hypertarget{classCompareCommits_a422da23c4ff3f08d173b58d19a3ec498}\label{classCompareCommits_a422da23c4ff3f08d173b58d19a3ec498}} 
+\index{CompareCommits@{CompareCommits}!CommitCompareVector@{CommitCompareVector}}
+\index{CommitCompareVector@{CommitCompareVector}!CompareCommits@{CompareCommits}}
+\doxysubsubsection{\texorpdfstring{CommitCompareVector()}{CommitCompareVector()}}
+{\footnotesize\ttfamily int Compare\+Commits\+::\+Commit\+Compare\+Vector (\begin{DoxyParamCaption}\item[{std\+::string}]{filename,  }\item[{std\+::string}]{repo\+\_\+name,  }\item[{std\+::string}]{commit\+\_\+path,  }\item[{std\+::vector$<$ std\+::string $>$ \&}]{commits }\end{DoxyParamCaption})}
+
+
+
+Compares all commits in vector, gets two commits and passes to Compare\+Two\+Commits for calculation, adds result to \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & full path to the directory containing the zipped commits \\
+\hline
+{\em repo\+\_\+name} & name given to repository on Git\+Hub \\
+\hline
+{\em commit\+\_\+path} & full path to commit directory \\
+\hline
+{\em commits} & vector of strings of commits to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 success or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 330 of file Compare\+Commits.\+cpp.
+
+
+
+References Similarity\+Matrix\+::add(), Compare\+Two\+Commits(), and Similarity\+Matrix\+::\+Nexus\+Out().
+
+
+
+Referenced by Commit\+Compare\+Start\+End().
+
+\mbox{\Hypertarget{classCompareCommits_a32127a3b0ed9cdb4989edfacf51f8f63}\label{classCompareCommits_a32127a3b0ed9cdb4989edfacf51f8f63}} 
+\index{CompareCommits@{CompareCommits}!CompareTwoCommits@{CompareTwoCommits}}
+\index{CompareTwoCommits@{CompareTwoCommits}!CompareCommits@{CompareCommits}}
+\doxysubsubsection{\texorpdfstring{CompareTwoCommits()}{CompareTwoCommits()}}
+{\footnotesize\ttfamily virtual double Compare\+Commits\+::\+Compare\+Two\+Commits (\begin{DoxyParamCaption}\item[{std\+::string}]{commit\+\_\+path,  }\item[{std\+::string}]{commit1\+\_\+path,  }\item[{std\+::string}]{commit2\+\_\+path,  }\item[{std\+::string}]{commit1\+\_\+filename,  }\item[{std\+::string}]{commit2\+\_\+filename,  }\item[{std\+::string}]{repo\+\_\+name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+a pure virtual member, calculates the difference between two files. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em commit\+\_\+path} & full path to the directory containing the files \\
+\hline
+{\em commit1\+\_\+path} & full path to first file \\
+\hline
+{\em commit2\+\_\+path} & full path to second file \\
+\hline
+{\em commit1\+\_\+filename} & the file name of first file \\
+\hline
+{\em commit2\+\_\+filename} & the file name of second file \\
+\hline
+{\em repo\+\_\+name} & repositories name on Git\+Hub \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+difference metric between files or an error code 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classDiffCompareCommits_ae7eb39d05e537771aa3d73800f42e9de}{Diff\+Compare\+Commits}}.
+
+
+
+Referenced by Commit\+Compare\+All\+Git(), Commit\+Compare\+All\+Zip(), and Commit\+Compare\+Vector().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Compare\+Commits.\+h\item 
+Compare\+Commits.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,133 @@
+.TH "SimilarityMatrix" 3 "Sat May 30 2020" "Version 1.0" "CompareCommits" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SimilarityMatrix
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SimilarityMatrix\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSimilarityMatrix\fP (size_t size)"
+.br
+.ti -1c
+.RI "virtual \fB~SimilarityMatrix\fP ()"
+.br
+.ti -1c
+.RI "\fBSimilarityMatrix\fP (const \fBSimilarityMatrix\fP &other)"
+.br
+.ti -1c
+.RI "\fBSimilarityMatrix\fP & \fBoperator=\fP (const \fBSimilarityMatrix\fP &other)"
+.br
+.ti -1c
+.RI "double & \fBoperator()\fP (size_t i, size_t j)"
+.br
+.RI "() operator overload "
+.ti -1c
+.RI "double \fBoperator()\fP (size_t i, size_t j) const"
+.br
+.ti -1c
+.RI "size_t \fBgetRows\fP () const"
+.br
+.RI "Getters\&. "
+.ti -1c
+.RI "size_t \fBgetCols\fP () const"
+.br
+.ti -1c
+.RI "std::vector< double > const  & \fBgetData\fP () const"
+.br
+.ti -1c
+.RI "\fBHASHINDEX_MAP\fP const  & \fBgetMap\fP () const"
+.br
+.ti -1c
+.RI "int \fBadd\fP (std::string commit1_hash, std::string commit2_hash, double similarity)"
+.br
+.RI "Methods\&. "
+.ti -1c
+.RI "size_t \fBgetIndex\fP (std::string commit_hash)"
+.br
+.ti -1c
+.RI "std::string \fBgetHash\fP (size_t index)"
+.br
+.ti -1c
+.RI "int \fBNexusOut\fP (std::string output_path, std::string filename)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "size_t \fBmRows\fP"
+.br
+.ti -1c
+.RI "size_t \fBmCols\fP"
+.br
+.ti -1c
+.RI "std::vector< double > \fBmData\fP"
+.br
+.ti -1c
+.RI "\fBHASHINDEX_MAP\fP \fBcommithashindexmap\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "SimilarityMatrix::SimilarityMatrix (size_t size)"
+
+.SS "SimilarityMatrix::~SimilarityMatrix ()\fC [virtual]\fP"
+
+.SS "SimilarityMatrix::SimilarityMatrix (const \fBSimilarityMatrix\fP & other)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "int SimilarityMatrix::add (std::string commit1_hash, std::string commit2_hash, double similarity)"
+
+.PP
+Methods\&. Check if key already in map, add to end of map if doesn't exist
+.SS "size_t SimilarityMatrix::getCols () const\fC [inline]\fP"
+
+.SS "std::vector< double > const  & SimilarityMatrix::getData () const\fC [inline]\fP"
+
+.SS "std::string SimilarityMatrix::getHash (size_t index)"
+Iterate through the map
+.PP
+Check if value of this entry matches with given value
+.PP
+Push the key in given map
+.PP
+Go to next entry in map
+.SS "size_t SimilarityMatrix::getIndex (std::string commit_hash)"
+
+.SS "\fBHASHINDEX_MAP\fP const  & SimilarityMatrix::getMap () const\fC [inline]\fP"
+
+.SS "size_t SimilarityMatrix::getRows () const\fC [inline]\fP"
+
+.PP
+Getters\&. 
+.SS "int SimilarityMatrix::NexusOut (std::string output_path, std::string filename)"
+if mod of numcols is 0, and not end of Data (at end of row)
+.SS "double & SimilarityMatrix::operator() (size_t i, size_t j)"
+
+.PP
+() operator overload 
+.SS "double SimilarityMatrix::operator() (size_t i, size_t j) const"
+
+.SS "\fBSimilarityMatrix\fP & SimilarityMatrix::operator= (const \fBSimilarityMatrix\fP & other)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBHASHINDEX_MAP\fP SimilarityMatrix::commithashindexmap\fC [protected]\fP"
+
+.SS "size_t SimilarityMatrix::mCols\fC [protected]\fP"
+
+.SS "std::vector<double> SimilarityMatrix::mData\fC [protected]\fP"
+
+.SS "size_t SimilarityMatrix::mRows\fC [protected]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for CompareCommits from the source code\&.

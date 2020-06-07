@@ -1,0 +1,60 @@
+.TH "main.cpp" 3 "Sat May 30 2020" "Version 1.0" "CompareCommits" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+main.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stddef\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <sys/types\&.h>\fP
+.br
+\fC#include <fstream>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <system_error>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include 'boost/program_options\&.hpp'\fP
+.br
+\fC#include 'CompareCommits\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBDiffCompareCommits\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char * argv[])"
+Using boost/program_options to parse command line options
+.PP
+Declare variable names for args to be saved to
+.PP
+Declare the supported options
+.PP
+1st arg with no option name treat as output-file option
+.PP
+called after help and version to stop required option exception being thrown
+.PP
+Print out options being ran
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for CompareCommits from the source code\&.

@@ -1,0 +1,413 @@
+\hypertarget{classSimilarityMatrix}{}\doxysection{Similarity\+Matrix Class Reference}
+\label{classSimilarityMatrix}\index{SimilarityMatrix@{SimilarityMatrix}}
+
+
+a class representing a similarity or difference matrix using a vector and map.  
+
+
+
+
+{\ttfamily \#include $<$Similarity\+Matrix.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSimilarityMatrix_ad4ed59931f9809fc525d491b31f0d3c0}{Similarity\+Matrix}} (size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSimilarityMatrix_aeb17fd47c1cd8b42c6b856a863f01452}\label{classSimilarityMatrix_aeb17fd47c1cd8b42c6b856a863f01452}} 
+virtual \mbox{\hyperlink{classSimilarityMatrix_aeb17fd47c1cd8b42c6b856a863f01452}{$\sim$\+Similarity\+Matrix}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSimilarityMatrix_ad2c2336fe5a3324462aa859fbe55d1a4}{Similarity\+Matrix}} (const \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} \&other)
+\begin{DoxyCompactList}\small\item\em Creates from copied values of other. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} \& \mbox{\hyperlink{classSimilarityMatrix_a84b433c7d8fb749904b7c0f117401d1f}{operator=}} (const \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} \&other)
+\begin{DoxyCompactList}\small\item\em Sets values to those of other. \end{DoxyCompactList}\item 
+double \& \mbox{\hyperlink{classSimilarityMatrix_a2401254a4afedb23213d5b7be1d869a6}{operator()}} (size\+\_\+t i, size\+\_\+t j)
+\begin{DoxyCompactList}\small\item\em Gets the data at row i, column j. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classSimilarityMatrix_a49e7ac4e89e76bbe581fcb4ffd39742f}{operator()}} (size\+\_\+t i, size\+\_\+t j) const
+\begin{DoxyCompactList}\small\item\em Gets value at row i, column j. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classSimilarityMatrix_a26aefdb5b29cfcfd9a4ae3b9b36ffe76}{get\+Rows}} () const
+\begin{DoxyCompactList}\small\item\em Gets number of rows. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classSimilarityMatrix_a494edf782ac0ad9826fc47c108ae03b7}{get\+Cols}} () const
+\begin{DoxyCompactList}\small\item\em Gets number of columns. \end{DoxyCompactList}\item 
+std\+::vector$<$ double $>$ const  \& \mbox{\hyperlink{classSimilarityMatrix_acc93a7307d8559ffc64f3fe083b8f5c0}{get\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Gets reference to vector of similarity data. \end{DoxyCompactList}\item 
+H\+A\+S\+H\+I\+N\+D\+E\+X\+\_\+\+M\+AP const  \& \mbox{\hyperlink{classSimilarityMatrix_aaf0b4ce40023578c8c09a964f53fbd72}{get\+Map}} () const
+\begin{DoxyCompactList}\small\item\em Gets reference to Hash-\/\+Index map. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classSimilarityMatrix_a10fa124eb00f02a50f0a07093759ea20}{add}} (std\+::string commit1\+\_\+hash, std\+::string commit2\+\_\+hash, double similarity)
+\begin{DoxyCompactList}\small\item\em Adds similarity between commit1\+\_\+hash and commit2\+\_\+hash. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classSimilarityMatrix_afa660f01e6e11a651d11b2d4d441aa1d}{get\+Index}} (std\+::string commit\+\_\+hash)
+\begin{DoxyCompactList}\small\item\em Gets index for commit\+\_\+hash. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classSimilarityMatrix_a251a1d3d2911e45b4f11230c8ed6eadc}{get\+Hash}} (size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Gets hash string for value. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classSimilarityMatrix_a7baf4adc12a487fef13e2a946ab57f22}{Nexus\+Out}} (std\+::string output\+\_\+path, std\+::string filename)
+\begin{DoxyCompactList}\small\item\em Creates N\+E\+X\+US file at output\+\_\+path with name \textquotesingle{}filename.\+nxs\textquotesingle{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSimilarityMatrix_aaa2fbe25ec299979ad6fe5f68dce9c2a}\label{classSimilarityMatrix_aaa2fbe25ec299979ad6fe5f68dce9c2a}} 
+size\+\_\+t \mbox{\hyperlink{classSimilarityMatrix_aaa2fbe25ec299979ad6fe5f68dce9c2a}{m\+Rows}}
+\begin{DoxyCompactList}\small\item\em a protected variable to store number of rows in the matrix. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSimilarityMatrix_ab4a4c90e8007d8bf339294347f0de453}\label{classSimilarityMatrix_ab4a4c90e8007d8bf339294347f0de453}} 
+size\+\_\+t \mbox{\hyperlink{classSimilarityMatrix_ab4a4c90e8007d8bf339294347f0de453}{m\+Cols}}
+\begin{DoxyCompactList}\small\item\em a protected variable to store number of columns in the matrix. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSimilarityMatrix_a07786acc1b75bdc77c731369835de3b0}\label{classSimilarityMatrix_a07786acc1b75bdc77c731369835de3b0}} 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classSimilarityMatrix_a07786acc1b75bdc77c731369835de3b0}{m\+Data}}
+\begin{DoxyCompactList}\small\item\em a protected variable to store the data of the matrix. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSimilarityMatrix_a6a6a12952e1793f12a917366e841ed4e}\label{classSimilarityMatrix_a6a6a12952e1793f12a917366e841ed4e}} 
+H\+A\+S\+H\+I\+N\+D\+E\+X\+\_\+\+M\+AP \mbox{\hyperlink{classSimilarityMatrix_a6a6a12952e1793f12a917366e841ed4e}{commithashindexmap}}
+\begin{DoxyCompactList}\small\item\em a protected variable to store the map of vector index to label. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+a class representing a similarity or difference matrix using a vector and map. 
+
+Definition at line 25 of file Similarity\+Matrix.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSimilarityMatrix_ad4ed59931f9809fc525d491b31f0d3c0}\label{classSimilarityMatrix_ad4ed59931f9809fc525d491b31f0d3c0}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!SimilarityMatrix@{SimilarityMatrix}}
+\index{SimilarityMatrix@{SimilarityMatrix}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{SimilarityMatrix()}{SimilarityMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Similarity\+Matrix\+::\+Similarity\+Matrix (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 16 of file Similarity\+Matrix.\+cpp.
+
+\mbox{\Hypertarget{classSimilarityMatrix_ad2c2336fe5a3324462aa859fbe55d1a4}\label{classSimilarityMatrix_ad2c2336fe5a3324462aa859fbe55d1a4}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!SimilarityMatrix@{SimilarityMatrix}}
+\index{SimilarityMatrix@{SimilarityMatrix}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{SimilarityMatrix()}{SimilarityMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Similarity\+Matrix\+::\+Similarity\+Matrix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Creates from copied values of other. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & constant reference to a \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 29 of file Similarity\+Matrix.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSimilarityMatrix_a10fa124eb00f02a50f0a07093759ea20}\label{classSimilarityMatrix_a10fa124eb00f02a50f0a07093759ea20}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!add@{add}}
+\index{add@{add}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily int Similarity\+Matrix\+::add (\begin{DoxyParamCaption}\item[{std\+::string}]{commit1\+\_\+hash,  }\item[{std\+::string}]{commit2\+\_\+hash,  }\item[{double}]{similarity }\end{DoxyParamCaption})}
+
+
+
+Adds similarity between commit1\+\_\+hash and commit2\+\_\+hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em commit1\+\_\+hash} & \\
+\hline
+{\em commit2\+\_\+hash} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 success or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 62 of file Similarity\+Matrix.\+cpp.
+
+
+
+References commithashindexmap, get\+Index(), m\+Cols, and m\+Data.
+
+
+
+Referenced by Compare\+Commits\+::\+Commit\+Compare\+All\+Git(), Compare\+Commits\+::\+Commit\+Compare\+All\+Zip(), and Compare\+Commits\+::\+Commit\+Compare\+Vector().
+
+\mbox{\Hypertarget{classSimilarityMatrix_a494edf782ac0ad9826fc47c108ae03b7}\label{classSimilarityMatrix_a494edf782ac0ad9826fc47c108ae03b7}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!getCols@{getCols}}
+\index{getCols@{getCols}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{getCols()}{getCols()}}
+{\footnotesize\ttfamily size\+\_\+t Similarity\+Matrix\+::get\+Cols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets number of columns. 
+
+\begin{DoxyReturn}{Returns}
+number of columns 
+\end{DoxyReturn}
+
+
+Definition at line 155 of file Similarity\+Matrix.\+h.
+
+
+
+References m\+Cols.
+
+
+
+Referenced by Nexus\+Out().
+
+\mbox{\Hypertarget{classSimilarityMatrix_acc93a7307d8559ffc64f3fe083b8f5c0}\label{classSimilarityMatrix_acc93a7307d8559ffc64f3fe083b8f5c0}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!getData@{getData}}
+\index{getData@{getData}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ const  \& Similarity\+Matrix\+::get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets reference to vector of similarity data. 
+
+\begin{DoxyReturn}{Returns}
+constant reference to vector of similarity data 
+\end{DoxyReturn}
+
+
+Definition at line 161 of file Similarity\+Matrix.\+h.
+
+
+
+References m\+Data.
+
+
+
+Referenced by Nexus\+Out().
+
+\mbox{\Hypertarget{classSimilarityMatrix_a251a1d3d2911e45b4f11230c8ed6eadc}\label{classSimilarityMatrix_a251a1d3d2911e45b4f11230c8ed6eadc}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!getHash@{getHash}}
+\index{getHash@{getHash}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{getHash()}{getHash()}}
+{\footnotesize\ttfamily std\+::string Similarity\+Matrix\+::get\+Hash (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Gets hash string for value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & index value for a specific pair in commithashindexmap \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+hash string for given value 
+\end{DoxyReturn}
+
+
+Definition at line 92 of file Similarity\+Matrix.\+cpp.
+
+
+
+References commithashindexmap.
+
+
+
+Referenced by Nexus\+Out().
+
+\mbox{\Hypertarget{classSimilarityMatrix_afa660f01e6e11a651d11b2d4d441aa1d}\label{classSimilarityMatrix_afa660f01e6e11a651d11b2d4d441aa1d}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!getIndex@{getIndex}}
+\index{getIndex@{getIndex}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{getIndex()}{getIndex()}}
+{\footnotesize\ttfamily size\+\_\+t Similarity\+Matrix\+::get\+Index (\begin{DoxyParamCaption}\item[{std\+::string}]{commit\+\_\+hash }\end{DoxyParamCaption})}
+
+
+
+Gets index for commit\+\_\+hash. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em commit\+\_\+hash} & key for a pair in commithashindexmap \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index pointing to start of data for given key, or end() if not found. 
+\end{DoxyReturn}
+
+
+Definition at line 86 of file Similarity\+Matrix.\+cpp.
+
+
+
+References commithashindexmap.
+
+
+
+Referenced by add().
+
+\mbox{\Hypertarget{classSimilarityMatrix_aaf0b4ce40023578c8c09a964f53fbd72}\label{classSimilarityMatrix_aaf0b4ce40023578c8c09a964f53fbd72}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!getMap@{getMap}}
+\index{getMap@{getMap}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{getMap()}{getMap()}}
+{\footnotesize\ttfamily H\+A\+S\+H\+I\+N\+D\+E\+X\+\_\+\+M\+AP const  \& Similarity\+Matrix\+::get\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets reference to Hash-\/\+Index map. 
+
+\begin{DoxyReturn}{Returns}
+constant reference to the Hash-\/\+Index map 
+\end{DoxyReturn}
+
+
+Definition at line 167 of file Similarity\+Matrix.\+h.
+
+
+
+References commithashindexmap.
+
+\mbox{\Hypertarget{classSimilarityMatrix_a26aefdb5b29cfcfd9a4ae3b9b36ffe76}\label{classSimilarityMatrix_a26aefdb5b29cfcfd9a4ae3b9b36ffe76}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!getRows@{getRows}}
+\index{getRows@{getRows}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{getRows()}{getRows()}}
+{\footnotesize\ttfamily size\+\_\+t Similarity\+Matrix\+::get\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets number of rows. 
+
+\begin{DoxyReturn}{Returns}
+number of rows 
+\end{DoxyReturn}
+
+
+Definition at line 149 of file Similarity\+Matrix.\+h.
+
+
+
+References m\+Rows.
+
+\mbox{\Hypertarget{classSimilarityMatrix_a7baf4adc12a487fef13e2a946ab57f22}\label{classSimilarityMatrix_a7baf4adc12a487fef13e2a946ab57f22}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!NexusOut@{NexusOut}}
+\index{NexusOut@{NexusOut}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{NexusOut()}{NexusOut()}}
+{\footnotesize\ttfamily int Similarity\+Matrix\+::\+Nexus\+Out (\begin{DoxyParamCaption}\item[{std\+::string}]{output\+\_\+path,  }\item[{std\+::string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Creates N\+E\+X\+US file at output\+\_\+path with name \textquotesingle{}filename.\+nxs\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output\+\_\+path} & \\
+\hline
+{\em filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 success or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 114 of file Similarity\+Matrix.\+cpp.
+
+
+
+References get\+Cols(), get\+Data(), and get\+Hash().
+
+
+
+Referenced by Compare\+Commits\+::\+Commit\+Compare\+All\+Git(), Compare\+Commits\+::\+Commit\+Compare\+All\+Zip(), and Compare\+Commits\+::\+Commit\+Compare\+Vector().
+
+\mbox{\Hypertarget{classSimilarityMatrix_a2401254a4afedb23213d5b7be1d869a6}\label{classSimilarityMatrix_a2401254a4afedb23213d5b7be1d869a6}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!operator()@{operator()}}
+\index{operator()@{operator()}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double \& Similarity\+Matrix\+::operator() (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{i,  }\item[{size\+\_\+t}]{j }\end{DoxyParamCaption})}
+
+
+
+Gets the data at row i, column j. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & row \\
+\hline
+{\em j} & column \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+reference to data at position i,j or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 50 of file Similarity\+Matrix.\+cpp.
+
+
+
+References m\+Cols, and m\+Data.
+
+\mbox{\Hypertarget{classSimilarityMatrix_a49e7ac4e89e76bbe581fcb4ffd39742f}\label{classSimilarityMatrix_a49e7ac4e89e76bbe581fcb4ffd39742f}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!operator()@{operator()}}
+\index{operator()@{operator()}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Similarity\+Matrix\+::operator() (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{i,  }\item[{size\+\_\+t}]{j }\end{DoxyParamCaption}) const}
+
+
+
+Gets value at row i, column j. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & row \\
+\hline
+{\em j} & column \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value of data at position i,j or an error code 
+\end{DoxyReturn}
+
+
+Definition at line 56 of file Similarity\+Matrix.\+cpp.
+
+
+
+References m\+Cols, and m\+Data.
+
+\mbox{\Hypertarget{classSimilarityMatrix_a84b433c7d8fb749904b7c0f117401d1f}\label{classSimilarityMatrix_a84b433c7d8fb749904b7c0f117401d1f}} 
+\index{SimilarityMatrix@{SimilarityMatrix}!operator=@{operator=}}
+\index{operator=@{operator=}!SimilarityMatrix@{SimilarityMatrix}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} \& Similarity\+Matrix\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Sets values to those of other. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & constant reference to a \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+reference to \mbox{\hyperlink{classSimilarityMatrix}{Similarity\+Matrix}} 
+\end{DoxyReturn}
+
+
+Definition at line 39 of file Similarity\+Matrix.\+cpp.
+
+
+
+References commithashindexmap, m\+Cols, m\+Data, and m\+Rows.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Similarity\+Matrix.\+h\item 
+Similarity\+Matrix.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,177 @@
+.TH "CompareCommits" 3 "Sat May 30 2020" "Version 1.0" "CompareCommits" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CompareCommits
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <CompareCommits\&.h>\fP
+.PP
+Inherited by \fBDiffCompareCommits\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual double \fBCompareTwoCommits\fP (std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_filename, std::string commit2_filename, std::string reponame='')=0"
+.br
+.ti -1c
+.RI "int \fBCommitCompareAllZip\fP (std::string filename, std::string commit_path)"
+.br
+.ti -1c
+.RI "int \fBCommitCompareAllGit\fP (std::string filename, std::string repo_name, std::string repo_path, std::string commit_path)"
+.br
+.ti -1c
+.RI "int \fBCommitCompareVector\fP (std::string filename, std::string repo_name, std::string commit_path, std::vector< std::string > &commits)"
+.br
+.ti -1c
+.RI "int \fBCommitCompareStartEnd\fP (std::string filename, std::string repo_name, std::string repo_path, std::string commit_path, std::string start_commit_hash, std::string end_commit_hash)"
+.br
+.ti -1c
+.RI "virtual \fB~CompareCommits\fP ()"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static constexpr double \fBVersionNo\fP = \fBCOMPARECOMMITS_VERSION\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual CompareCommits::~CompareCommits ()\fC [inline]\fP, \fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "int CompareCommits::CommitCompareAllGit (std::string filename, std::string repo_name, std::string repo_path, std::string commit_path)"
+init libgit
+.PP
+return if error initialising repo, print error
+.PP
+-- open repo --
+.PP
+return if error opening repo, print error
+.PP
+-- create revision walker --
+.PP
+return if error allocating new revision walker, print error
+.PP
+sort by chronological order
+.PP
+return if error changing sorting mode, print error
+.PP
+start from HEAD
+.PP
+return if error pushing head to walker, print error
+.PP
+-- walk the walk --
+.PP
+itterate over each commit
+.PP
+-- clean up --
+.PP
+return if error shutting down, print error
+.PP
+if path exists
+.PP
+Iterate over directory
+.PP
+if file path not empty then accessed a file already
+.PP
+store previous file
+.PP
+Iterate over all files in directory for comparison
+.PP
+if both paths exist and file extensions are zip
+.PP
+return if error comparing commits, print error number
+.PP
+return if error adding to \fBSimilarityMatrix\fP, print error number
+.PP
+return if error writing NEXUS file, print error number
+.SS "int CompareCommits::CommitCompareAllZip (std::string filename, std::string commit_path)"
+If path exists
+.PP
+Iterate over directory, count number of files with extension zip
+.PP
+If file extension has extension zip
+.PP
+Iterate over directory
+.PP
+If file path not empty then accessed a file already
+.PP
+store previous file
+.PP
+Iterate over all files in directory for comparison
+.PP
+If both paths exist and file extensions are zip
+.PP
+return if error comparing commits, print error number
+.PP
+return if error adding to \fBSimilarityMatrix\fP, print error number
+.PP
+return if error writing NEXUS file, print error number
+.SS "int CompareCommits::CommitCompareStartEnd (std::string filename, std::string repo_name, std::string repo_path, std::string commit_path, std::string start_commit_hash, std::string end_commit_hash)"
+init libgit
+.PP
+return if error initialising repo, print error
+.PP
+-- open repo --
+.PP
+return if error opening repo, print error
+.PP
+-- create revision walker --
+.PP
+return if error allocating new revision walker, print error
+.PP
+sort by chronological order
+.PP
+return if error changing sorting mode, print error
+.PP
+set range for walker
+.PP
+start from HEAD
+.PP
+return if error pushing range to walker, print error
+.PP
+-- walk the walk --
+.PP
+-- get the current commit --
+.PP
+return if error looking up commit, print error
+.PP
+add commit
+.PP
+free the commit
+.PP
+-- clean up --
+.PP
+return if error shutting down, print error
+.PP
+call CommitCompareVector now commits vector has been created
+.PP
+return if error in CommitCompareVector, print error number
+.SS "int CompareCommits::CommitCompareVector (std::string filename, std::string repo_name, std::string commit_path, std::vector< std::string > & commits)"
+for each item in vector compare with all other items in vector
+.PP
+if both paths exist and file extensions are zip
+.PP
+return if error comparing commits, print error number
+.PP
+return if error adding to \fBSimilarityMatrix\fP, print error number
+.PP
+return if error writing NEXUS file, print error number
+.SS "virtual double CompareCommits::CompareTwoCommits (std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_filename, std::string commit2_filename, std::string reponame = \fC''\fP)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBDiffCompareCommits\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "constexpr double CompareCommits::VersionNo = \fBCOMPARECOMMITS_VERSION\fP\fC [static]\fP, \fC [constexpr]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for CompareCommits from the source code\&.

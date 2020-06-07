@@ -1,0 +1,75 @@
+\hypertarget{classDiffCompareCommits}{}\doxysection{Diff\+Compare\+Commits Class Reference}
+\label{classDiffCompareCommits}\index{DiffCompareCommits@{DiffCompareCommits}}
+
+
+Derrived Class from \mbox{\hyperlink{classCompareCommits}{Compare\+Commits}}, provided as an example of implementation of the \mbox{\hyperlink{classCompareCommits}{Compare\+Commits}} class.  
+
+
+Inheritance diagram for Diff\+Compare\+Commits\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classDiffCompareCommits}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classDiffCompareCommits_ae7eb39d05e537771aa3d73800f42e9de}{Compare\+Two\+Commits}} (std\+::string commit\+\_\+path, std\+::string commit1\+\_\+path, std\+::string commit2\+\_\+path, std\+::string commit1\+\_\+filename, std\+::string commit2\+\_\+filename, std\+::string repo\+\_\+name=\char`\"{}\char`\"{}) override
+\begin{DoxyCompactList}\small\item\em Overrides Compare\+Two\+Commits member function to use the Linux diff system call for calculating the difference metric. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDiffCompareCommits_a4be379226d99cc3394bb581af15857de}\label{classDiffCompareCommits_a4be379226d99cc3394bb581af15857de}} 
+\mbox{\hyperlink{classDiffCompareCommits_a4be379226d99cc3394bb581af15857de}{$\sim$\+Diff\+Compare\+Commits}} ()
+\begin{DoxyCompactList}\small\item\em a destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Derrived Class from \mbox{\hyperlink{classCompareCommits}{Compare\+Commits}}, provided as an example of implementation of the \mbox{\hyperlink{classCompareCommits}{Compare\+Commits}} class. 
+
+Compare\+Two\+Commits member function is overridden to use the Linux diff system call for calculating the difference metric. 
+
+Definition at line 27 of file main.\+cpp.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDiffCompareCommits_ae7eb39d05e537771aa3d73800f42e9de}\label{classDiffCompareCommits_ae7eb39d05e537771aa3d73800f42e9de}} 
+\index{DiffCompareCommits@{DiffCompareCommits}!CompareTwoCommits@{CompareTwoCommits}}
+\index{CompareTwoCommits@{CompareTwoCommits}!DiffCompareCommits@{DiffCompareCommits}}
+\doxysubsubsection{\texorpdfstring{CompareTwoCommits()}{CompareTwoCommits()}}
+{\footnotesize\ttfamily double Diff\+Compare\+Commits\+::\+Compare\+Two\+Commits (\begin{DoxyParamCaption}\item[{std\+::string}]{commit\+\_\+path,  }\item[{std\+::string}]{commit1\+\_\+path,  }\item[{std\+::string}]{commit2\+\_\+path,  }\item[{std\+::string}]{commit1\+\_\+filename,  }\item[{std\+::string}]{commit2\+\_\+filename,  }\item[{std\+::string}]{repo\+\_\+name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Overrides Compare\+Two\+Commits member function to use the Linux diff system call for calculating the difference metric. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em commit\+\_\+path} & full path to the directory containing the files \\
+\hline
+{\em commit1\+\_\+path} & full path to first file \\
+\hline
+{\em commit2\+\_\+path} & full path to second file \\
+\hline
+{\em commit1\+\_\+filename} & the file name of first file \\
+\hline
+{\em commit2\+\_\+filename} & the file name of second file \\
+\hline
+{\em repo\+\_\+name} & repositories name on Git\+Hub \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+difference metric between files or an error code 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classCompareCommits_a32127a3b0ed9cdb4989edfacf51f8f63}{Compare\+Commits}}.
+
+
+
+Definition at line 41 of file main.\+cpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+main.\+cpp\end{DoxyCompactItemize}

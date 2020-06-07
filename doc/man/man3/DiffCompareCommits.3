@@ -1,0 +1,86 @@
+.TH "DiffCompareCommits" 3 "Sat May 30 2020" "Version 1.0" "CompareCommits" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DiffCompareCommits
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBCompareCommits\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDiffCompareCommits\fP ()"
+.br
+.ti -1c
+.RI "double \fBCompareTwoCommits\fP (std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_filename, std::string commit2_filename, std::string reponame='') override"
+.br
+.ti -1c
+.RI "\fB~DiffCompareCommits\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "double \fBDiffTwoCommitsGit\fP (std::string reponame, std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_hash, std::string commit2_hash)"
+.br
+.ti -1c
+.RI "double \fBDiffTwoCommitsZip\fP (std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_filename, std::string commit2_filename)"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "DiffCompareCommits::DiffCompareCommits ()\fC [inline]\fP"
+
+.SS "DiffCompareCommits::~DiffCompareCommits ()\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "double DiffCompareCommits::CompareTwoCommits (std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_filename, std::string commit2_filename, std::string reponame = \fC''\fP)\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBCompareCommits\fP\&.
+.SS "double DiffCompareCommits::DiffTwoCommitsGit (std::string reponame, std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_hash, std::string commit2_hash)\fC [inline]\fP, \fC [private]\fP"
+make diffs dir -verbose -parent
+.PP
+executing unzip command for both commit zips
+.PP
+q for quiet o for overwrite
+.PP
+executing diff command symmetrically
+.PP
+read number of differences between folders(commits)
+.PP
+If line contains 'differ'
+.PP
+If line contains 'Only-in'
+.PP
+remove diff file
+.PP
+remove unzipped commit folders (recursive no prompt)
+.SS "double DiffCompareCommits::DiffTwoCommitsZip (std::string commit_path, std::string commit1_path, std::string commit2_path, std::string commit1_filename, std::string commit2_filename)\fC [inline]\fP, \fC [private]\fP"
+make diffs dir -verbose -parent
+.PP
+executing unzip command for both zips
+.PP
+q for quiet o for overwrite
+.PP
+executing diff command symmetrically
+.PP
+read number of differences between folders
+.PP
+If line contains 'differ'
+.PP
+If line contains 'Only-in'
+.PP
+remove diff file
+.PP
+remove unzipped commit folders (recursive no prompt)
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for CompareCommits from the source code\&.
