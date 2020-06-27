@@ -6,7 +6,7 @@
 // * Description : Similarity or difference matrix using vector and map.
 // *****************************************************************************
 
-#include "SimilarityMatrix.h"
+#include "SimilarityMatrix.hpp"
 
 #include <fstream>
 #include <iomanip>
@@ -169,31 +169,31 @@ std::istream& operator>>(std::istream &is, SimilarityMatrix &m)
 	double similarity;
 	std::string line;
 
-	if( std::getline(is, line) )
-	{
-		std::stringstream iss(line);
-		if (iss >> hash1 >> a >> hash2 >> b  >> similarity)
-		{
-			if (a == ',' && b == ',')
-			{
-				/* remove leading and trailing whitespace */
-				hash1 = std::regex_replace(hash1, std::regex("^ +| +$|( ) +"), "$1");
-				hash2 = std::regex_replace(hash2, std::regex("^ +| +$|( ) +"), "$1");
-				m.add(hash1, hash2, similarity);
-			}
-			else
-			{
-				is.setstate(std::ios::failbit);
-			}
-		}
-		else
-		{
-			is.setstate(std::ios::failbit);
-		}
-	}
-	else
-	{
-		is.setstate(std::ios::failbit);
-	}
+	// if( std::getline(is, line) )
+	// {
+	// 	std::stringstream iss(line);
+	// 	if (iss >> hash1 >> a >> hash2 >> b  >> similarity)
+	// 	{
+	// 		if (a == ',' && b == ',')
+	// 		{
+	// 			/* remove leading and trailing whitespace */
+	// 			hash1 = std::regex_replace(hash1, std::regex("^ +| +$|( ) +"), "$1");
+	// 			hash2 = std::regex_replace(hash2, std::regex("^ +| +$|( ) +"), "$1");
+	// 			m.add(hash1, hash2, similarity);
+	// 		}
+	// 		else
+	// 		{
+	// 			is.setstate(std::ios::failbit);
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		is.setstate(std::ios::failbit);
+	// 	}
+	// }
+	// else
+	// {
+	// 	is.setstate(std::ios::failbit);
+	// }
 	return is;
 }

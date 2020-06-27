@@ -9,16 +9,10 @@
 
 //TODO fix reposize from counting duplicates
 
-#include <git2/commit.h>
-#include <git2/deprecated.h>
-#include <git2/errors.h>
-#include <git2/global.h>
-#include <git2/oid.h>
-#include <git2/repository.h>
-#include <git2/revwalk.h>
 #include <cstdlib>
 
-#include "CompareCommits.h"
+#include "../../lib/libgit2/include/git2.h"
+#include "CompareCommits.hpp"
 
 
 int CompareCommits::CommitCompareAllZip(
@@ -43,7 +37,7 @@ int CompareCommits::CommitCompareAllZip(
 		for (auto &dirEntry : fs::directory_iterator(commit_path))
 		{
 			/* If file extension has extension zip */
-			if (extension.compare(dirEntry.path().extension())==0)
+			if (extension.compare(dirEntry.path().extension().string()) == 0)
 			{
 				reposize++;
 			}
@@ -73,8 +67,8 @@ int CompareCommits::CommitCompareAllZip(
 					/* If both paths exist and file extensions are zip */
 					if (exists(file)
 							&& exists(previousfile)
-							&& extension.compare(file.extension()) == 0
-							&& extension.compare(previousfile.extension()) == 0)
+							&& extension.compare(file.extension().string()) == 0
+							&& extension.compare(previousfile.extension().string()) == 0)
 					{
 						commit1_filename = previousfile.stem().string();
 						commit2_filename = file.stem().string();
@@ -261,8 +255,8 @@ int CompareCommits::CommitCompareAllGit(
 					/* if both paths exist and file extensions are zip */
 					if (exists(file)
 							&& exists(previousfile)
-							&& extension.compare(file.extension()) == 0
-							&& extension.compare(previousfile.extension()) == 0)
+							&& extension.compare(file.extension().string()) == 0
+							&& extension.compare(previousfile.extension().string()) == 0)
 					{
 						commit1_hash = previousfile.stem().string();
 						commit2_hash = file.stem().string();
@@ -368,8 +362,8 @@ int CompareCommits::CommitCompareVector(
 				/* if both paths exist and file extensions are zip */
 				if (exists(file)
 						&& exists(previousfile)
-						&& extension.compare(file.extension()) == 0
-						&& extension.compare(previousfile.extension()) == 0)
+						&& extension.compare(file.extension().string()) == 0
+						&& extension.compare(previousfile.extension().string()) == 0)
 				{
 					commit1_hash = previousfile.stem().string();
 					commit2_hash = file.stem().string();

@@ -7,8 +7,8 @@
 // *			   file for SplitsTree.
 // *****************************************************************************
 
-#ifndef COMPARECOMMITS_H_
-#define COMPARECOMMITS_H_
+#ifndef COMPARECOMMITS_HPP_
+#define COMPARECOMMITS_HPP_
 
 /* Program Version */
 #define COMPARECOMMITS_VERSION 1.0
@@ -18,16 +18,16 @@
 #include <string>
 #include <vector>
 
-#include "SimilarityMatrix.h"
-#include "git2.h"
+#include "SimilarityMatrix.hpp"
 
-#if (__cplusplus >= 201703L)
+// #if (__cplusplus >= 201703L)
 	#include <filesystem>
 	namespace fs = std::filesystem;
-#else
-	#include <experimental/filesystem>
-	namespace fs = std::experimental::filesystem;
-#endif
+// #else
+// 	#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+// 	#include <experimental/filesystem>
+// 	namespace fs = std::experimental::filesystem;
+// #endif
 
 /*******************************************************************************
  * a class to compare commits and create a NEXUS file representing the distance

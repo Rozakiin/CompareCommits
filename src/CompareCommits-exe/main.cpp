@@ -15,10 +15,10 @@
 #include <system_error>
 #include <vector>
 
-#include "boost/program_options.hpp"
+#include "../lib/boost/libs/program_options/program_options.hpp"
 namespace po = boost::program_options;
 
-#include "CompareCommits.h"
+#include "CompareCommits/CompareCommits.hpp"
 
 /*******************************************************************************
  * Derrived Class from CompareCommits, provided as an example of implementation

@@ -9,8 +9,8 @@
 //TODO only printout valid entries not ones without hash value
 
 
-#ifndef SIMILARITYMATRIX_H_
-#define SIMILARITYMATRIX_H_
+#ifndef SIMILARITYMATRIX_HPP_
+#define SIMILARITYMATRIX_HPP_
 
 #include <stddef.h>
 #include <iostream>
