@@ -1,10 +1,10 @@
 project(CompareCommitsLibrary VERSION 1.0)
 
-print_variables()
+#print_variables()
 
 set(HEADERS
     CompareCommits.hpp
-    SimilarityMatrix.hpp 
+    SimilarityMatrix.hpp
 )
 
 set(SOURCES
