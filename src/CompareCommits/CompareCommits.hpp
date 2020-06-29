@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 
+#include "git2.h"
 #include "SimilarityMatrix.hpp"
 
 // #if (__cplusplus >= 201703L)
@@ -130,4 +131,4 @@ protected:
 private:
 };
 
-#endif /* COMPARECOMMITS_H_ */
+#endif /* COMPARECOMMITS_HPP_ */

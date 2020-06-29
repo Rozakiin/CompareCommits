@@ -11,7 +11,6 @@
 
 #include <cstdlib>
 
-#include "../../lib/libgit2/include/git2.h"
 #include "CompareCommits.hpp"
 
 
