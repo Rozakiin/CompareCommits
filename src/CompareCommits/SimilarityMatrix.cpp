@@ -14,16 +14,10 @@
 
 
 SimilarityMatrix::SimilarityMatrix(size_t size) :
-		mRows(size), mCols(size), mData(size * size), commithashindexmap{}
-{
-
-}
+		mRows(size), mCols(size), mData(size * size), commithashindexmap{} {}
 
 
-SimilarityMatrix::~SimilarityMatrix()
-{
-	// TODO Auto-generated destructor stub
-}
+SimilarityMatrix::~SimilarityMatrix() {}
 
 
 SimilarityMatrix::SimilarityMatrix(const SimilarityMatrix &other) :
