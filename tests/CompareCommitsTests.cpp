@@ -25,21 +25,21 @@ TEST(SimilarityMatrixConstructorTests, HandlesZeroSize) {
 // Tests SimilarityMatrix constructed with negative size - not sure if correct handling
 TEST(SimilarityMatrixConstructorTests, HandlesNegativeSize) {
     SimilarityMatrix m = SimilarityMatrix(-1);
-    EXPECT_EQ(m.getCols(), 4294967295);
+    EXPECT_EQ(m.size(), 4294967295);
 }
 
 // Tests SimilarityMatrix constructor with positive size
 TEST(SimilarityMatrixConstructorTests, HandlesPositiveSize) {
     {
     SimilarityMatrix m = SimilarityMatrix(1);
-    EXPECT_EQ(m.getCols(), 1);
+    EXPECT_EQ(m.size(), 1);
     }
     {
     SimilarityMatrix m = SimilarityMatrix(2);
-    EXPECT_EQ(m.getCols(), 2);
+    EXPECT_EQ(m.size(), 2);
     }
     {
     SimilarityMatrix m = SimilarityMatrix(4294967295);
-    EXPECT_EQ(m.getCols(), 4294967295);
+    EXPECT_EQ(m.size(), 4294967295);
     }
 }

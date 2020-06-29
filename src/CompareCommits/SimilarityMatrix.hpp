@@ -72,18 +72,11 @@ public:
 
 	/* Getters */
 	/*******************************************************************************
-	 * Gets number of rows.
-	 *
-	 * @return number of rows
-	 ******************************************************************************/
-	unsigned long getRows() const;
-
-	/*******************************************************************************
-	 * Gets number of columns.
+	 * Gets number of columns (size).
 	 *
 	 * @return number of columns
 	 ******************************************************************************/
-	unsigned long getCols() const;
+	unsigned long size() const;
 
 	/*******************************************************************************
 	 * Gets reference to vector of similarity data.
@@ -135,10 +128,8 @@ public:
 	 ******************************************************************************/
 	int NexusOut(std::string output_path, std::string filename);
 protected:
-	/** a protected variable to store number of rows in the matrix. */
-	unsigned long mRows;
 	/** a protected variable to store number of columns in the matrix. */
-	unsigned long mCols;
+	unsigned long mSize;
 	/** a protected variable to store the data of the matrix. */
 	std::vector<double> mData;
 	/** a protected variable to store the map of vector index to label. */
@@ -148,15 +139,9 @@ private:
 
 /* Getters */
 
-inline unsigned long SimilarityMatrix::getRows() const
+inline unsigned long SimilarityMatrix::size() const
 {
-	return mRows;
-}
-
-
-inline unsigned long SimilarityMatrix::getCols() const
-{
-	return mCols;
+	return mSize;
 }
 
 
@@ -181,7 +166,7 @@ inline HASHINDEX_MAP const& SimilarityMatrix::getMap() const
  ******************************************************************************/
 inline std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m)
 {
-	os << m.getRows() << " x " << m.getCols() << std::endl;
+	os << m.size() << " x " << m.size() << std::endl;
 
 	for (auto elem : m.getMap())
 	{
@@ -190,7 +175,7 @@ inline std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m)
 
 	for (unsigned long long i = 0; i != m.getData().size(); i++)
 	{
-		if (i % m.getCols() == 0)
+		if (i % m.size() == 0)
 			os << "\n"; //new line when at end of row
 		os << m.getData().at(i) << " ";
 	}

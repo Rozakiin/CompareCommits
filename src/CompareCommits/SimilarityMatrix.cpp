@@ -16,8 +16,7 @@
 SimilarityMatrix::SimilarityMatrix(unsigned long size)
 {
 	if (size == 0) throw std::invalid_argument("Constructor called with zero size");
-	mRows = size;
-	mCols = size;
+	mSize = size;
 	std::vector<double> d(size * size);
 	mData = d;
 	HASHINDEX_MAP m{};
@@ -29,20 +28,15 @@ SimilarityMatrix::~SimilarityMatrix() {}
 
 
 SimilarityMatrix::SimilarityMatrix(const SimilarityMatrix &other) :
-		mRows(other.mRows),
-		mCols(other.mCols),
+		mSize(other.mSize),
 		mData(other.mData),
-		commithashindexmap(other.commithashindexmap)
-{
-
-}
+		commithashindexmap(other.commithashindexmap) {}
 
 
 SimilarityMatrix& SimilarityMatrix::operator=(const SimilarityMatrix &other)
 {
-	this->mCols = other.mCols;
+	this->mSize = other.mSize;
 	this->mData = other.mData;
-	this->mRows = other.mRows;
 	this->commithashindexmap = other.commithashindexmap;
 
 	return *this;
@@ -51,13 +45,13 @@ SimilarityMatrix& SimilarityMatrix::operator=(const SimilarityMatrix &other)
 
 double& SimilarityMatrix::operator()(unsigned long i, unsigned long j)
 {
-	return mData.at(i * mCols + j);
+	return mData.at(i * mSize + j);
 }
 
 
 double SimilarityMatrix::operator()(unsigned long i, unsigned long j) const
 {
-	return mData.at(i * mCols + j);
+	return mData.at(i * mSize + j);
 }
 
 
@@ -78,8 +72,8 @@ int SimilarityMatrix::add(
 		commithashindexmap.insert(
 				std::make_pair(commit2_hash, commithashindexmap.size()));
 	}
-	mData[getIndex(commit1_hash) * mCols + getIndex(commit2_hash)] = similarity;
-	mData[getIndex(commit2_hash) * mCols + getIndex(commit1_hash)] = similarity;
+	mData[getIndex(commit1_hash) * mSize + getIndex(commit2_hash)] = similarity;
+	mData[getIndex(commit2_hash) * mSize + getIndex(commit1_hash)] = similarity;
 
 	return 0;
 }
@@ -125,10 +119,10 @@ int SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 			"\n"
 			"BEGIN TAXA;\n"
 			"\tDIMENSIONS ntax="
-			<< getCols()
+			<< size()
 			<< ";\n"
 			"\tTAXLABELS ";
-	for (unsigned long i = 0; i != getCols(); i++)
+	for (unsigned long i = 0; i != size(); i++)
 	{
 		myfile << " " << getHash(i);
 	}
@@ -138,14 +132,14 @@ int SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 			"\n"
 			"BEGIN DISTANCES;\n"
 			"\tDIMENSIONS ntax="
-			<< getCols() <<
+			<< size() <<
 			";\n"
 			"\tFORMAT TRIANGLE=BOTH DIAGONAL LABELS MISSING=?;\n"
 			"\tMATRIX\n";
 	for (unsigned long long i = 0; i != getData().size(); i++)
 	{
 		/* if mod of numcols is 0, and not end of Data (at end of row) */
-		if (i % getCols() == 0 && (i + 1) != (getData().size()))
+		if (i % size() == 0 && (i + 1) != (getData().size()))
 		{
 			myfile << "\n\t\t" << getHash(rownum++); //
 		}
