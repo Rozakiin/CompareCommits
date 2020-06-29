@@ -11,10 +11,18 @@
 #include <fstream>
 #include <iomanip>
 #include <regex>
+#include <exception>
 
-
-SimilarityMatrix::SimilarityMatrix(size_t size) :
-		mRows(size), mCols(size), mData(size * size), commithashindexmap{} {}
+SimilarityMatrix::SimilarityMatrix(unsigned long size)
+{
+	if (size == 0) throw std::invalid_argument("Constructor called with zero size");
+	mRows = size;
+	mCols = size;
+	std::vector<double> d(size * size);
+	mData = d;
+	HASHINDEX_MAP m{};
+	commithashindexmap = m;
+}
 
 
 SimilarityMatrix::~SimilarityMatrix() {}
@@ -41,13 +49,13 @@ SimilarityMatrix& SimilarityMatrix::operator=(const SimilarityMatrix &other)
 }
 
 
-double& SimilarityMatrix::operator()(size_t i, size_t j)
+double& SimilarityMatrix::operator()(unsigned long i, unsigned long j)
 {
 	return mData.at(i * mCols + j);
 }
 
 
-double SimilarityMatrix::operator()(size_t i, size_t j) const
+double SimilarityMatrix::operator()(unsigned long i, unsigned long j) const
 {
 	return mData.at(i * mCols + j);
 }
@@ -77,13 +85,13 @@ int SimilarityMatrix::add(
 }
 
 
-size_t SimilarityMatrix::getIndex(std::string commit_hash)
+unsigned long long SimilarityMatrix::getIndex(std::string commit_hash)
 {
 	return commithashindexmap.find(commit_hash)->second;
 }
 
 
-std::string SimilarityMatrix::getHash(size_t value)
+std::string SimilarityMatrix::getHash(unsigned long long index)
 {
 	//https://thispointer.com/how-to-search-by-value-in-a-map-c/
 	std::string hash = "";
@@ -91,8 +99,8 @@ std::string SimilarityMatrix::getHash(size_t value)
 	/* Iterate through the map */
 	while (it != commithashindexmap.end())
 	{
-		/* Check if value of this entry matches with given value */
-		if (it->second == value)
+		/* Check if value of this entry matches with given index */
+		if (it->second == index)
 		{
 			/* Push the key in given map */
 			hash = it->first;
@@ -108,7 +116,7 @@ std::string SimilarityMatrix::getHash(size_t value)
 int SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 {
 	// online converter http://phylogeny.lirmm.fr/phylo_cgi/data_converter.cgi
-	size_t rownum = 0;
+	unsigned long rownum = 0;
 	std::ofstream myfile;
 	myfile.open(output_path + filename + ".nxs");
 
@@ -120,7 +128,7 @@ int SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 			<< getCols()
 			<< ";\n"
 			"\tTAXLABELS ";
-	for (size_t i = 0; i != getCols(); i++)
+	for (unsigned long i = 0; i != getCols(); i++)
 	{
 		myfile << " " << getHash(i);
 	}
@@ -134,7 +142,7 @@ int SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 			";\n"
 			"\tFORMAT TRIANGLE=BOTH DIAGONAL LABELS MISSING=?;\n"
 			"\tMATRIX\n";
-	for (size_t i = 0; i != getData().size(); i++)
+	for (unsigned long long i = 0; i != getData().size(); i++)
 	{
 		/* if mod of numcols is 0, and not end of Data (at end of row) */
 		if (i % getCols() == 0 && (i + 1) != (getData().size()))

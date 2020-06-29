@@ -19,7 +19,7 @@
 #include <utility>
 #include <vector>
 
-typedef std::map<std::string, size_t> HASHINDEX_MAP;
+typedef std::map<std::string, unsigned long long> HASHINDEX_MAP;
 /*******************************************************************************
  * a class representing a similarity or difference matrix using a vector and map.
  ******************************************************************************/
@@ -30,7 +30,7 @@ public:
 	 *
 	 * @param size
 	 ******************************************************************************/
-	SimilarityMatrix(size_t size);
+	SimilarityMatrix(unsigned long size);
 
 	/*******************************************************************************
 	 * Destructor for SimilarityMatrix.
@@ -59,7 +59,7 @@ public:
 	 * @param j column
 	 * @return reference to data at position i,j or an error code
 	 ******************************************************************************/
-	double& operator()(size_t i, size_t j);
+	double& operator()(unsigned long i, unsigned long j);
 
 	/*******************************************************************************
 	 * Gets value at row i, column j.
@@ -68,7 +68,7 @@ public:
 	 * @param j column
 	 * @return value of data at position i,j or an error code
 	 ******************************************************************************/
-	double operator()(size_t i, size_t j) const;
+	double operator()(unsigned long i, unsigned long j) const;
 
 	/* Getters */
 	/*******************************************************************************
@@ -76,14 +76,14 @@ public:
 	 *
 	 * @return number of rows
 	 ******************************************************************************/
-	size_t getRows() const;
+	unsigned long getRows() const;
 
 	/*******************************************************************************
 	 * Gets number of columns.
 	 *
 	 * @return number of columns
 	 ******************************************************************************/
-	size_t getCols() const;
+	unsigned long getCols() const;
 
 	/*******************************************************************************
 	 * Gets reference to vector of similarity data.
@@ -105,6 +105,7 @@ public:
 	 *
 	 * @param commit1_hash
 	 * @param commit2_hash
+	 * @param similarity
 	 * @return 0 success or an error code
 	 ******************************************************************************/
 	int add(std::string commit1_hash, std::string commit2_hash, double similarity);
@@ -115,15 +116,15 @@ public:
 	 * @param commit_hash key for a pair in commithashindexmap
 	 * @return Index pointing to start of data for given key, or end() if not found.
 	 ******************************************************************************/
-	size_t getIndex(std::string commit_hash);
+	unsigned long long getIndex(std::string commit_hash);
 
 	/*******************************************************************************
 	 * Gets hash string for value.
 	 *
-	 * @param value index value for a specific pair in commithashindexmap
+	 * @param index index value for a specific pair in commithashindexmap
 	 * @return hash string for given value
 	 ******************************************************************************/
-	std::string getHash(size_t index);
+	std::string getHash(unsigned long long index);
 
 	/*******************************************************************************
 	 * Creates NEXUS file at output_path with name 'filename.nxs'.
@@ -135,9 +136,9 @@ public:
 	int NexusOut(std::string output_path, std::string filename);
 protected:
 	/** a protected variable to store number of rows in the matrix. */
-	size_t mRows;
+	unsigned long mRows;
 	/** a protected variable to store number of columns in the matrix. */
-	size_t mCols;
+	unsigned long mCols;
 	/** a protected variable to store the data of the matrix. */
 	std::vector<double> mData;
 	/** a protected variable to store the map of vector index to label. */
@@ -147,13 +148,13 @@ private:
 
 /* Getters */
 
-inline size_t SimilarityMatrix::getRows() const
+inline unsigned long SimilarityMatrix::getRows() const
 {
 	return mRows;
 }
 
 
-inline size_t SimilarityMatrix::getCols() const
+inline unsigned long SimilarityMatrix::getCols() const
 {
 	return mCols;
 }
@@ -187,7 +188,7 @@ inline std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m)
 		os << elem.first << " " << elem.second << std::endl;
 	}
 
-	for (size_t i = 0; i != m.getData().size(); i++)
+	for (unsigned long long i = 0; i != m.getData().size(); i++)
 	{
 		if (i % m.getCols() == 0)
 			os << "\n"; //new line when at end of row
