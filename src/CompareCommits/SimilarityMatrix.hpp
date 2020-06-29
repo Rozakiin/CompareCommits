@@ -207,4 +207,4 @@ inline std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m)
 std::istream& operator>>(std::istream &is, SimilarityMatrix &m);
 
 
-#endif /* SIMILARITYMATRIX_H_ */
+#endif /* SIMILARITYMATRIX_HPP_ */
