@@ -15,7 +15,15 @@
 
 SimilarityMatrix::SimilarityMatrix(unsigned long size)
 {
-	if (size == 0) throw std::invalid_argument("Constructor called with zero size");
+	/* Construct with size 1 then throw exception */
+	if (size == 0) {
+		mSize = 1;
+		std::vector<double> d(1);
+		mData = d;
+		HASHINDEX_MAP m{};
+		commithashindexmap = m;
+		throw std::invalid_argument("Constructor called with zero size");
+	}
 	mSize = size;
 	std::vector<double> d(size * size);
 	mData = d;
@@ -72,8 +80,10 @@ int SimilarityMatrix::add(
 		commithashindexmap.insert(
 				std::make_pair(commit2_hash, commithashindexmap.size()));
 	}
-	mData[getIndex(commit1_hash) * mSize + getIndex(commit2_hash)] = similarity;
-	mData[getIndex(commit2_hash) * mSize + getIndex(commit1_hash)] = similarity;
+
+	/* Throws out of bound exception if !(pos < size()) */
+	mData.at(getIndex(commit1_hash) * mSize + getIndex(commit2_hash)) = similarity;
+	mData.at(getIndex(commit2_hash) * mSize + getIndex(commit1_hash)) = similarity;
 
 	return 0;
 }

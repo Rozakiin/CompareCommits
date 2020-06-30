@@ -29,8 +29,9 @@ public:
 	 * Constructor for SimilarityMatrix.
 	 *
 	 * @param size
+	 * @throw invalid_argument
 	 ******************************************************************************/
-	SimilarityMatrix(unsigned long size);
+	SimilarityMatrix(unsigned long size) throw(...);
 
 	/*******************************************************************************
 	 * Destructor for SimilarityMatrix.
@@ -53,7 +54,7 @@ public:
 	SimilarityMatrix& operator=(const SimilarityMatrix &other);
 
 	/*******************************************************************************
-	 * Gets the data at row i, column j.
+	 * Gets reference to data at row i, column j.
 	 *
 	 * @param i row
 	 * @param j column
@@ -99,9 +100,10 @@ public:
 	 * @param commit1_hash
 	 * @param commit2_hash
 	 * @param similarity
-	 * @return 0 success or an error code
+	 * @return 0 success
+	 * @throw out_of_bounds
 	 ******************************************************************************/
-	int add(std::string commit1_hash, std::string commit2_hash, double similarity);
+	int add(std::string commit1_hash, std::string commit2_hash, double similarity) throw(...);
 
 	/*******************************************************************************
 	 * Gets index for commit_hash.
