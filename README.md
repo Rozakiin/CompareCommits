@@ -37,6 +37,23 @@ $ ./Code/CompareCommits/Debug/comparecommits.exe --version
 
 ```
 
+1. Clone this repository
+2. cd to lib/libgit2 install
+3. cd to lib/boost install
+31. cd lib/boost/tools/build
+32. ./bootstrap.bat 
+33. ./b2 --prefix=../../ install
+34. cd to lib/boost 
+35. ./b2
+4. build using CMake TODO
+5. Verify CompareCommits was correctly installed by checking version
+```shell
+$ ./src/CompareCommits/Debug/comparecommits.exe --version
+
+```
+
+
+
 ### Linux/Ubuntu
 1. Clone this repository
 2. Install libgit2 ([good tutorial](https://bvisness.me/libgit2/))
