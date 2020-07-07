@@ -15,10 +15,10 @@
 #include <system_error>
 #include <vector>
 
-#include "../lib/boost/libs/program_options/program_options.hpp"
+#include "boost/program_options.hpp"
 namespace po = boost::program_options;
 
-#include "CompareCommits/CompareCommits.hpp"
+#include "../CompareCommits/CompareCommits.hpp"
 
 /*******************************************************************************
  * Derrived Class from CompareCommits, provided as an example of implementation
@@ -135,7 +135,7 @@ private:
 					getline(file, line);
 
 					/* If line contains 'differ' */
-					ulong pos = 0;
+					unsigned long pos = 0;
 					while (true)
 					{
 						pos = line.find("differ", pos);
@@ -251,7 +251,7 @@ private:
 					getline(file, line);
 
 					/* If line contains 'differ' */
-					ulong pos = 0;
+					unsigned long pos = 0;
 					while (true)
 					{
 						pos = line.find("differ", pos);
