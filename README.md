@@ -36,16 +36,19 @@ Installation
 $ ./Code/CompareCommits/Debug/comparecommits.exe --version
 
 ```
+Tested using MINGW64 (git Bash)
 
 1. Clone this repository
-2. cd to lib/libgit2 install
-3. cd to lib/boost install
+2. libgit2 install (possibly not needed?)
+3. boost install
 31. cd lib/boost/tools/build
 32. ./bootstrap.bat 
 33. ./b2 --prefix=../../ install
-34. cd to lib/boost 
-35. ./b2
-4. build using CMake TODO
+34. cd ../../
+35. ./bin/b2 --show-libraries (to test correct installation of b2)
+36. ./bin/b2 --with-program_options --build-type=complete
+4. build using CMake
+41. 
 5. Verify CompareCommits was correctly installed by checking version
 ```shell
 $ ./src/CompareCommits/Debug/comparecommits.exe --version
@@ -63,6 +66,16 @@ $ ./src/CompareCommits/Debug/comparecommits.exe --version
 ```shell
 $ ./Code/CompareCommits/Debug/comparecommits.exe --version
 ```
+
+1. Clone this repository
+2. libgit2 install (possibly not needed?)
+3. boost install
+31. cd lib/boost/tools/build
+32. ./bootstrap.sh 
+33. ./b2 --prefix=../../ install
+34. cd ../../
+35. ./bin/b2 --show-libraries (to test correct installation of b2)
+36. ./bin/b2 --with-program_options --build-type=complete
 
 ### Linux Install Notes
 - boost/program_options needs to be built
