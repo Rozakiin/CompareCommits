@@ -18,7 +18,7 @@
 #include "boost/program_options.hpp"
 namespace po = boost::program_options;
 
-#include "../CompareCommits/CompareCommits.hpp"
+#include "CompareCommitsLibrary/CompareCommits.hpp"
 
 /*******************************************************************************
  * Derrived Class from CompareCommits, provided as an example of implementation

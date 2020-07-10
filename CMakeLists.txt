@@ -12,14 +12,14 @@
 # > cmake --build . --target install
 
 cmake_minimum_required(VERSION 3.16)
-project(CompareCommitsTopProject VERSION 1.0 LANGUAGES C CXX)
+project(CompareCommits VERSION 1.0 LANGUAGES C CXX)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_IMDEPENDENT_CODE ON)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-include(PrintVariables.cmake)
+include(cmake/PrintVariables.cmake)
 
 print_variables()
 
@@ -39,13 +39,13 @@ include_directories(lib/libgit2/include)
 include_directories(src)
 
 # Build CompareCommits Library
-add_subdirectory(src/CompareCommits)
+add_subdirectory(src/CompareCommitsLibrary)
 
 # Set Boost options
 #set(BOOST_LIBRARYDIR ${CMAKE_SOURCE_DIR}/lib/boost/stage/lib)
 set(BOOST_ROOT lib/boost)
 set(BOOST_LIBRARYDIR lib/boost/stage/lib)
-set(Boost_DEBUG ON)  #<---------- Real life saver
+#set(Boost_DEBUG ON)  #<---------- Real life saver
 
 # linking of Boost
 set(Boost_USE_STATIC_LIBS        ON) #on works?
@@ -62,4 +62,5 @@ message(status "** Boost Libraries: ${Boost_LIBRARIES}")
 # Build CompareCommits Program
 add_subdirectory(src/CompareCommitsProgram)
 
+# Build tests
 add_subdirectory(tests)

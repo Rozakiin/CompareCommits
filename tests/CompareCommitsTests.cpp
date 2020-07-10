@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "CompareCommits/CompareCommits.hpp"
+#include "CompareCommitsLibrary/CompareCommits.hpp"
 
 TEST(CompareCommitsTests, DemonstrateGTestMacros) 
 {
