@@ -19,9 +19,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_IMDEPENDENT_CODE ON)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-include(cmake/PrintVariables.cmake)
+#include(cmake/PrintVariables.cmake)
 
-print_variables()
+#print_variables()
 
 enable_testing()
 
@@ -40,6 +40,9 @@ include_directories(src)
 
 # Build CompareCommits Library
 add_subdirectory(src/CompareCommitsLibrary)
+
+# Build CompareCommitsDebug progeam
+add_subdirectory(src/CompareCommitsDebug)
 
 # Set Boost options
 #set(BOOST_LIBRARYDIR ${CMAKE_SOURCE_DIR}/lib/boost/stage/lib)
