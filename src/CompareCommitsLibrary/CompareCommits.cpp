@@ -29,7 +29,6 @@ SimilarityMatrix CompareCommits::IterateOverDirectory(
 		fs::path file;
 		fs::path previousfile;
 		double similarity;
-		int error = 0;
 
 		/* Iterate over directory */
 		for (auto &dirEntry : fs::directory_iterator(commit_path))
@@ -51,40 +50,48 @@ SimilarityMatrix CompareCommits::IterateOverDirectory(
 					{
 						commit1_filename = previousfile.stem().string();
 						commit2_filename = file.stem().string();
-
-						similarity = this->CompareTwoCommits(
-								commit_path,
-								previousfile.string(),
-								file.string(),
-								commit1_filename,
-								commit2_filename,
-								repo_name);
-
-						/* return if error comparing commits, print error number */
-						if (similarity < 0)
+						try
 						{
-							std::cerr << "CompareTwoCommits("
-									<< commit_path << ", "
-									<< previousfile.string() << ", "
-									<< file.string() << ", "
-									<< commit1_filename << ", "
-									<< commit2_filename << ", "
-									<< repo_name << ")\n" 
-									<< "Error " << similarity << "\n";
-							return static_cast<int>(similarity);
+							similarity = this->CompareTwoCommits(
+									commit_path,
+									previousfile.string(),
+									file.string(),
+									commit1_filename,
+									commit2_filename,
+									repo_name);
+							/* return if error comparing commits, print libgit_error number */
+							//TODO remove
+							if (similarity < 0)
+							{
+								std::cerr << "CompareTwoCommits("
+										<< commit_path << ", "
+										<< previousfile.string() << ", "
+										<< file.string() << ", "
+										<< commit1_filename << ", "
+										<< commit2_filename << ", "
+										<< repo_name << ")\n" 
+										<< "Error " << similarity << "\n";
+								return static_cast<int>(similarity);
+							}
+						}
+						catch(const std::exception& e)
+						{
+							std::cerr << e.what() << '\n';
+							throw std::runtime_error(e.what());
 						}
 
-						error = m.add(commit1_filename, commit2_filename, similarity);
-
-						/* return if error adding to SimilarityMatrix, print error number */
-						if (error < 0)
+						/* add computed similarity to SimilarityMatrix */
+						try
+						{
+							m.add(commit1_filename, commit2_filename, similarity);
+						}
+						catch(const std::exception& e)
 						{
 							std::cerr << "m.add("
 									<< commit1_filename << ", "
 									<< commit2_filename << ", "
-									<< similarity << ")\n"
-									<< "returned: " << error << "\n";
-							return error;
+									<< similarity << ")\n";
+							throw std::runtime_error(e.what());
 						}
 					}
 				}
@@ -93,8 +100,7 @@ SimilarityMatrix CompareCommits::IterateOverDirectory(
 	}
 	else
 	{
-		std::cerr << "PATH INVALID: " << commit_path << "\n";
-		return -1;
+		throw std::invalid_argument("Path Invalid: " + commit_path);
 	}
 	return m;
 }
@@ -104,8 +110,7 @@ int CompareCommits::CommitCompareAllZip(
 		std::string filename,
 		std::string commit_path)
 {
-	unsigned long long reposize = 0;
-	int error = 0;
+	unsigned long reposize = 0;
 
 	/* If path exists */
 	fs::path startpath(commit_path);
@@ -124,35 +129,35 @@ int CompareCommits::CommitCompareAllZip(
 	}
 	else
 	{
-		std::cerr << "PATH INVALID: " << commit_path << "\n";
-		return -1;
+		throw std::invalid_argument("Path Invalid: " + commit_path);
 	}
 
 	if (reposize == 0)
 	{
-		std::cerr << "Number of commits to compare is 0 \n";
-		return -1;
+		throw std::runtime_error("Number of commits to compare is 0");
 	}
 
 	SimilarityMatrix m = SimilarityMatrix(reposize);
-
-	m = IterateOverDirectory(m, commit_path, ".zip");
-
-	/* return if error iterating over directory, print error number */
-	if(error < 0)
+	try
 	{
-		std::cerr << "IterateOverDirectory(m, " << commit_path << ".zip)\n" << "returned: " << error << "\n";
-		return error;
+		m = IterateOverDirectory(m, commit_path, ".zip");
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "IterateOverDirectory(m, " << commit_path << ".zip)\n";
+		std::cerr << e.what() << '\n';
+		return -1;
 	}
 
-	std::cout << "Writing Nexus File to: \n" << commit_path << filename << "\n";
-	error = m.NexusOut(commit_path, filename);
-
-	/* return if error writing NEXUS file, print error number */
-	if (error < 0)
+	std::cout << "Writing NEXUS File to: \n" << commit_path << filename << "\n";
+	try
 	{
-		std::cerr << "m.NexusOut(" << commit_path << ", " << filename << ")\n" << "returned: " << error << "\n";
-		return error;
+		m.NexusOut(commit_path, filename);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return -1;
 	}
 
 	return 0;
@@ -165,66 +170,66 @@ int CompareCommits::CommitCompareAllGit(
 		std::string repo_path,
 		std::string commit_path)
 {
-	unsigned long long reposize = 0;
-	int error = 0;
+	int libgit_error = 0;
 
 	/* init libgit */
-	error = git_libgit2_init();
+	libgit_error = git_libgit2_init();
 
-	/* return if error initialising repo, print error */
-	if (error < 0)
+	/* return if error initialising repo, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* -- open repo -- */
 	const char *REPO_PATH = repo_path.c_str();
 	git_repository *repo = nullptr;
-	error = git_repository_open(&repo, REPO_PATH);
+	libgit_error = git_repository_open(&repo, REPO_PATH);
 
-	/* return if error opening repo, print error */
-	if (error < 0)
+	/* return if error opening repo, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* -- create revision walker -- */
 	git_revwalk *walker = nullptr;
-	error = git_revwalk_new(&walker, repo);
+	libgit_error = git_revwalk_new(&walker, repo);
 
-	/* return if error allocating new revision walker, print error */
-	if (error < 0)
+	/* return if error allocating new revision walker, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* sort by chronological order */
-	error = git_revwalk_sorting(walker, GIT_SORT_NONE);
+	libgit_error = git_revwalk_sorting(walker, GIT_SORT_NONE);
 
-	/* return if error changing sorting mode, print error */
-	if (error < 0)
+	/* return if error changing sorting mode, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* start from HEAD */
-	error = git_revwalk_push_head(walker);
+	libgit_error = git_revwalk_push_head(walker);
 
-	/* return if error pushing head to walker, print error */
-	if (error < 0)
+	/* return if error pushing head to walker, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* -- walk the walk -- */
 	git_oid oid;
 
 	/* itterate over each commit */
+	unsigned long reposize = 0;
 	while (!git_revwalk_next(&oid, walker))
 	{
 		reposize++;
@@ -234,34 +239,43 @@ int CompareCommits::CommitCompareAllGit(
 	git_revwalk_free(walker);
 	git_repository_free(repo);
 
-	error = git_libgit2_shutdown();
+	libgit_error = git_libgit2_shutdown();
 
-	/* return if error shutting down, print error */
-	if (error < 0)
+	/* return if error shutting down, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	// TODO check if this is still needed
 	if (reposize == 0)
 	{
-		std::cerr << "Number of commits to compare is 0 \n";
-		return -1;
+		throw (std::runtime_error("Number of commits to compare is 0"));
 	}
 
 	SimilarityMatrix m = SimilarityMatrix(reposize);
 
-	m = IterateOverDirectory(m, commit_path, ".zip", repo_name);
-
-	std::cout << "Writing NEXUS File to: \n" << commit_path << filename << "\n";
-	error = m.NexusOut(commit_path, filename);
-
-	/* return if error writing NEXUS file, print error number */
-	if (error < 0)
+	try
 	{
-		std::cerr << "m.NexusOut(" << commit_path << ", " << filename << ")\n" << "returned: " << error << "\n";
-		return error;
+		m = IterateOverDirectory(m, commit_path, ".zip", repo_name);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "IterateOverDirectory(m, " << commit_path << ".zip, " << repo_name << ")\n";
+		std::cerr << e.what() << '\n';
+		return -1;
+	}
+	
+	std::cout << "Writing NEXUS File to: \n" << commit_path << filename << "\n";
+	try
+	{
+		m.NexusOut(commit_path, filename);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return -1;
 	}
 
 	return 0;
@@ -276,12 +290,10 @@ int CompareCommits::CommitCompareVector(
 {
 	if (commits.size() == 0)
 	{
-		std::cerr << "Number of commits to compare is 0 \n";
-		return -1;
+		throw std::invalid_argument("Number of commits to compare is 0");
 	}
 
-	SimilarityMatrix m = SimilarityMatrix(commits.size());
-	int error = 0;
+	SimilarityMatrix m = SimilarityMatrix(static_cast<unsigned long>(commits.size()));
 
 	/* if path exists */
 	fs::path startpath(commit_path);
@@ -314,16 +326,17 @@ int CompareCommits::CommitCompareVector(
 					commit1_hash = previousfile.stem().string();
 					commit2_hash = file.stem().string();
 
-					similarity = this->CompareTwoCommits(
-							commit_path,
-							previousfile.string(),
-							file.string(),
-							commit1_hash,
-							commit2_hash,
-							repo_name);
-
-					/* return if error comparing commits, print error number */
-					if (similarity<0)
+					try
+					{
+						similarity = this->CompareTwoCommits(
+								commit_path,
+								previousfile.string(),
+								file.string(),
+								commit1_hash,
+								commit2_hash,
+								repo_name);
+					}
+					catch(const std::exception& e)
 					{
 						std::cerr << "CompareTwoCommits("
 								<< commit_path << ", "
@@ -331,40 +344,43 @@ int CompareCommits::CommitCompareVector(
 								<< file.string() << ", "
 								<< commit1_hash << ", "
 								<< commit2_hash << ", "
-								<< repo_name << ")\n" 
-								<< "Error: " << similarity << "\n";
-						return static_cast<int>(similarity);
+								<< repo_name << ")\n";
+						std::cerr << e.what() << '\n';
+						return -1;
 					}
-
-					error = m.add(commit1_hash, commit2_hash, similarity);
-
-					/* return if error adding to SimilarityMatrix, print error number */
-					if (error < 0)
+					
+					try
+					{
+						m.add(commit1_hash, commit2_hash, similarity);
+					}
+					catch(const std::exception& e)
 					{
 						std::cerr << "m.add("
 								<< commit1_hash << ", "
 								<< commit2_hash << ", "
-								<< similarity << ")\n" 
-								<< "returned: " << error << "\n";
-						return error;
+								<< similarity << ")\n";
+						std::cerr << e.what() << '\n';
+						return -1;
 					}
 				}
 			}
 		}
-		std::cout << "Writing NEXUS File to: \n" << commit_path << filename << "\n";
-		error = m.NexusOut(commit_path, filename);
 
-		/* return if error writing NEXUS file, print error number */
-		if (error < 0)
+		std::cout << "Writing NEXUS File to: \n" << commit_path << filename << "\n";
+		try
 		{
-			std::cerr << "m.NexusOut(" << commit_path << ", " << filename << ")\n" << "returned: " << error << "\n";
-			return error;
+			m.NexusOut(commit_path, filename);
 		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+			return -1;
+		}
+		
 	}
 	else
 	{
-		std::cerr << "PATH INVALID: " << commit_path << "\n";
-		return -1;
+		throw std::invalid_argument("Path Invalid: " + commit_path);
 	}
 
 	return 0;
@@ -381,50 +397,50 @@ int CompareCommits::CommitCompareStartEnd(
 {
 	std::string commit_hash;
 	std::vector<std::string> commits;
-	int error = 0;
+	int libgit_error = 0;
 
 	/* init libgit */
-	error = git_libgit2_init();
+	libgit_error = git_libgit2_init();
 
-	/* return if error initialising repo, print error */
+	/* return if error initialising repo, print libgit_error */
 	//https://libgit2.org/docs/guides/101-samples/
-	if (error < 0)
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* -- open repo -- */
 	const char *REPO_PATH = repo_path.c_str();
 	git_repository *repo = nullptr;
-	error = git_repository_open(&repo, REPO_PATH);
+	libgit_error = git_repository_open(&repo, REPO_PATH);
 
-	/* return if error opening repo, print error */
-	if (error < 0)
+	/* return if error opening repo, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* -- create revision walker -- */
 	git_revwalk *walker = nullptr;
-	error = git_revwalk_new(&walker, repo);
+	libgit_error = git_revwalk_new(&walker, repo);
 
-	/* return if error allocating new revision walker, print error */
-	if (error < 0)
+	/* return if error allocating new revision walker, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* sort by chronological order */
-	error = git_revwalk_sorting(walker, GIT_SORT_NONE);
+	libgit_error = git_revwalk_sorting(walker, GIT_SORT_NONE);
 
-	/* return if error changing sorting mode, print error */
-	if (error < 0)
+	/* return if error changing sorting mode, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* set range for walker */
@@ -432,20 +448,20 @@ int CompareCommits::CommitCompareStartEnd(
 	{
 		/* start from HEAD */
 		std::cout << "range: All \n";
-		error = git_revwalk_push_head(walker);
+		libgit_error = git_revwalk_push_head(walker);
 	}
 	else
 	{
 		std::string range = start_commit_hash + ".." + end_commit_hash;
 		std::cout << "range: " << range << "\n";
-		error = git_revwalk_push_range(walker, range.c_str());
+		libgit_error = git_revwalk_push_range(walker, range.c_str());
 	}
 
-	/* return if error pushing range to walker, print error */
-	if (error < 0)
+	/* return if error pushing range to walker, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* -- walk the walk -- */
@@ -455,13 +471,13 @@ int CompareCommits::CommitCompareStartEnd(
 	{
 		/* -- get the current commit -- */
 		git_commit *commit = nullptr;
-		error = git_commit_lookup(&commit, repo, &oid);
+		libgit_error = git_commit_lookup(&commit, repo, &oid);
 
-		/* return if error looking up commit, print error */
-		if (error < 0)
+		/* return if error looking up commit, print libgit_error */
+		if (libgit_error < 0)
 		{
-			PrintGitErrorDetails(git_error_last(), error);
-			return error;
+			PrintGitErrorDetails(git_error_last(), libgit_error);
+			return libgit_error;
 		}
 
 		/* add commit */
@@ -475,31 +491,37 @@ int CompareCommits::CommitCompareStartEnd(
 	git_revwalk_free(walker);
 	git_repository_free(repo);
 
-	error = git_libgit2_shutdown();
+	libgit_error = git_libgit2_shutdown();
 
-	/* return if error shutting down, print error */
-	if (error < 0)
+	/* return if error shutting down, print libgit_error */
+	if (libgit_error < 0)
 	{
-		PrintGitErrorDetails(git_error_last(), error);
-		return error;
+		PrintGitErrorDetails(git_error_last(), libgit_error);
+		return libgit_error;
 	}
 
 	/* call CommitCompareVector now commits vector has been created */
-	error = CommitCompareVector(filename, repo_name, commit_path, commits);
-
-	/* return if error in CommitCompareVector, print error number */
-	if (error < 0)
+	try
 	{
-		std::cerr << "CommitCompareVector("
-				<< filename << ", "
-				<< repo_name << ", "
-				<< commit_path << ", "
-				<< "commits" << ")\n"
-				<< "Error " << error << "\n";
-		return error;
+		libgit_error = CommitCompareVector(filename, repo_name, commit_path, commits);
+		/* return if error in CommitCompareVector, print libgit_error number */
+		if (libgit_error < 0)
+		{
+			std::cerr << "CommitCompareVector("
+					<< filename << ", "
+					<< repo_name << ", "
+					<< commit_path << ", "
+					<< "commits" << ")\n"
+					<< "Error " << libgit_error << "\n";
+			return libgit_error;
+		}
 	}
-
-
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return -1;
+	}
+	
 	return 0;
 }
 
