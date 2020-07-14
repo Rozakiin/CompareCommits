@@ -97,23 +97,18 @@ unsigned long long SimilarityMatrix::getIndex(std::string commit_hash)
 
 std::string SimilarityMatrix::getHash(unsigned long long index)
 {
-	//https://thispointer.com/how-to-search-by-value-in-a-map-c/
-	std::string hash = "";
-	auto it = commithashindexmap.begin();
 	/* Iterate through the map */
-	while (it != commithashindexmap.end())
+	for (auto element : commithashindexmap)
 	{
 		/* Check if value of this entry matches with given index */
-		if (it->second == index)
+		if(element.second == index)
 		{
 			/* Push the key in given map */
-			hash = it->first;
-			return hash;
+			return element.first;
 		}
-		/* Go to next entry in map */
-		it++;
 	}
-	return hash;
+	//TODO change to throw runtime error?
+	return "";
 }
 
 
