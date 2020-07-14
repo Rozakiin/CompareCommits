@@ -65,7 +65,7 @@ public:
 	 ******************************************************************************/
 	int CommitCompareAllZip(
 			std::string filename,
-			std::string commit_path);
+			std::string commit_path) noexcept(false);
 
 	/*******************************************************************************
 	 * Compares all commits, gets two commits and passes to CompareTwoCommits for
@@ -81,7 +81,7 @@ public:
 			std::string filename,
 			std::string repo_name,
 			std::string repo_path,
-			std::string commit_path);
+			std::string commit_path) noexcept(false);
 
 	/*******************************************************************************
 	 * Compares all commits in vector, gets two commits and passes to
@@ -97,7 +97,7 @@ public:
 			std::string filename,
 			std::string repo_name,
 			std::string commit_path,
-			std::vector<std::string>& commits);
+			std::vector<std::string>& commits) noexcept(false);
 
 	/*******************************************************************************
 	 * Gets all commits between start and end commits and adds to vector, passes to
@@ -117,7 +117,7 @@ public:
 			std::string repo_path,
 			std::string commit_path,
 			std::string start_commit_hash,
-			std::string end_commit_hash);
+			std::string end_commit_hash) noexcept(false);
 
 	/***********************************************************************
 	 * a virtual destructor.
@@ -147,7 +147,7 @@ private:
 	 * @param repo_name
 	 * @returns similarity_matrix
 	 ******************************************************************************/
-	SimilarityMatrix IterateOverDirectory(SimilarityMatrix& similarity_matrix, std::string commit_path, std::string file_extension, std::string repo_name="");
+	SimilarityMatrix IterateOverDirectory(SimilarityMatrix& similarity_matrix, std::string commit_path, std::string file_extension, std::string repo_name="") noexcept(false);
 };
 
 #endif /* COMPARECOMMITS_HPP_ */
