@@ -63,7 +63,7 @@ double SimilarityMatrix::operator()(unsigned long i, unsigned long j) const
 }
 
 
-int SimilarityMatrix::add(
+void SimilarityMatrix::add(
 		std::string commit1_hash,
 		std::string commit2_hash,
 		double similarity)
@@ -81,11 +81,9 @@ int SimilarityMatrix::add(
 				std::make_pair(commit2_hash, commithashindexmap.size()));
 	}
 
-	/* Throws out of bound exception if !(pos < size()) */
+	/* at() Throws out of bound exception if pos > size() */
 	mData.at(getIndex(commit1_hash) * mSize + getIndex(commit2_hash)) = similarity;
 	mData.at(getIndex(commit2_hash) * mSize + getIndex(commit1_hash)) = similarity;
-
-	return 0;
 }
 
 
@@ -112,9 +110,10 @@ std::string SimilarityMatrix::getHash(unsigned long long index)
 }
 
 
-int SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
+void SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 {
 	// online converter http://phylogeny.lirmm.fr/phylo_cgi/data_converter.cgi
+
 	unsigned long rownum = 0;
 	std::ofstream myfile;
 	myfile.open(output_path + filename + ".nxs");
@@ -156,19 +155,18 @@ int SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 			"END;\n";
 
 	myfile.close();
-	return 0;
 }
 
 
 std::istream& operator>>(std::istream &is, SimilarityMatrix &m)
 {
 	// TODO code istream operator
-	char a;
-	char b;
-	std::string hash1;
-	std::string hash2;
-	double similarity;
-	std::string line;
+	//char a;
+	//char b;
+	//std::string hash1;
+	//std::string hash2;
+	//double similarity;
+	//std::string line;
 
 	// if( std::getline(is, line) )
 	// {

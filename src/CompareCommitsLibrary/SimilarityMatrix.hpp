@@ -31,7 +31,7 @@ public:
 	 * @param size
 	 * @throw invalid_argument
 	 ******************************************************************************/
-	SimilarityMatrix(unsigned long size) throw(...);
+	SimilarityMatrix(unsigned long size) noexcept(false);
 
 	/*******************************************************************************
 	 * Destructor for SimilarityMatrix.
@@ -100,10 +100,9 @@ public:
 	 * @param commit1_hash
 	 * @param commit2_hash
 	 * @param similarity
-	 * @return 0 success
 	 * @throw out_of_bounds
 	 ******************************************************************************/
-	int add(std::string commit1_hash, std::string commit2_hash, double similarity) throw(...);
+	void add(std::string commit1_hash, std::string commit2_hash, double similarity) noexcept(false);
 
 	/*******************************************************************************
 	 * Gets index for commit_hash.
@@ -126,9 +125,9 @@ public:
 	 *
 	 * @param output_path
 	 * @param filename
-	 * @return 0 success or an error code
+	 * @throw 
 	 ******************************************************************************/
-	int NexusOut(std::string output_path, std::string filename);
+	void NexusOut(std::string output_path, std::string filename) noexcept(false);
 protected:
 	/** a protected variable to store number of columns in the matrix. */
 	unsigned long mSize;
