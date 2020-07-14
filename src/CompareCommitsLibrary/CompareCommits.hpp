@@ -137,7 +137,17 @@ protected:
 	void PrintGitErrorDetails(const git_error* e, int error_code) const;
 
 private:
-	int IterateOverDirectory(SimilarityMatrix& m, std::string commit_path, std::string file_extension, std::string repo_name="");
+	/*******************************************************************************
+	 * Iterates over commit_path and compares all files of type file_extension to 
+	 * each other. Populates similarity_matrix with the similarity values calculated.
+	 *
+	 * @param similarity_matrix 
+	 * @param commit_path
+	 * @param file_extension
+	 * @param repo_name
+	 * @returns similarity_matrix
+	 ******************************************************************************/
+	SimilarityMatrix IterateOverDirectory(SimilarityMatrix& similarity_matrix, std::string commit_path, std::string file_extension, std::string repo_name="");
 };
 
 #endif /* COMPARECOMMITS_HPP_ */

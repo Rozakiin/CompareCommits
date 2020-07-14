@@ -13,24 +13,24 @@
 
 #include "CompareCommits.hpp"
 
-int CompareCommits::IterateOverDirectory(
-		SimilarityMatrix& m, 
+SimilarityMatrix CompareCommits::IterateOverDirectory(
+		SimilarityMatrix& similarity_matrix, 
 		std::string commit_path, 
 		std::string file_extension, 
 		std::string repo_name)
 {
-	std::string commit1_filename;
-	std::string commit2_filename;
-	fs::path file;
-	fs::path previousfile;
-	double similarity;
-	std::string extension = ".zip";
-	int error = 0;
-
+	SimilarityMatrix m = similarity_matrix;
 	/* If path exists */
 	fs::path startpath(commit_path);
 	if (exists(startpath))
 	{
+		std::string commit1_filename;
+		std::string commit2_filename;
+		fs::path file;
+		fs::path previousfile;
+		double similarity;
+		int error = 0;
+
 		/* Iterate over directory */
 		for (auto &dirEntry : fs::directory_iterator(commit_path))
 		{
@@ -44,11 +44,10 @@ int CompareCommits::IterateOverDirectory(
 				for (auto &dirEntry2 : fs::directory_iterator(commit_path))
 				{
 					file = dirEntry2.path();
-					/* if both paths exist and file extensions are zip */
-					if (exists(file)
-							&& exists(previousfile)
-							&& extension.compare(file.extension().string()) == 0
-							&& extension.compare(previousfile.extension().string()) == 0)
+					/* if both paths exist and file extensions are the given file extension */
+					bool fileisFileExtension = file.extension().string().compare(file_extension) == 0;
+					bool previousfileIsFileExtension = previousfile.extension().string().compare(file_extension) == 0;
+					if (exists(file) && exists(previousfile) && fileisFileExtension && previousfileIsFileExtension)
 					{
 						commit1_filename = previousfile.stem().string();
 						commit2_filename = file.stem().string();
@@ -62,7 +61,7 @@ int CompareCommits::IterateOverDirectory(
 								repo_name);
 
 						/* return if error comparing commits, print error number */
-						if (similarity<0)
+						if (similarity < 0)
 						{
 							std::cerr << "CompareTwoCommits("
 									<< commit_path << ", "
@@ -97,6 +96,7 @@ int CompareCommits::IterateOverDirectory(
 		std::cerr << "PATH INVALID: " << commit_path << "\n";
 		return -1;
 	}
+	return m;
 }
 
 
@@ -105,7 +105,6 @@ int CompareCommits::CommitCompareAllZip(
 		std::string commit_path)
 {
 	unsigned long long reposize = 0;
-	std::string extension = ".zip";
 	int error = 0;
 
 	/* If path exists */
@@ -115,8 +114,9 @@ int CompareCommits::CommitCompareAllZip(
 		/* Iterate over directory, count number of files with extension zip */
 		for (auto &dirEntry : fs::directory_iterator(commit_path))
 		{
-			/* If file extension has extension zip */
-			if (extension.compare(dirEntry.path().extension().string()) == 0)
+			/* If file has extension zip */
+			bool fileisZip = dirEntry.path().extension().string().compare(".zip") == 0;
+			if (fileisZip)
 			{
 				reposize++;
 			}
@@ -136,7 +136,14 @@ int CompareCommits::CommitCompareAllZip(
 
 	SimilarityMatrix m = SimilarityMatrix(reposize);
 
-	IterateOverDirectory(m, commit_path, extension);
+	m = IterateOverDirectory(m, commit_path, ".zip");
+
+	/* return if error iterating over directory, print error number */
+	if(error < 0)
+	{
+		std::cerr << "IterateOverDirectory(m, " << commit_path << ".zip)\n" << "returned: " << error << "\n";
+		return error;
+	}
 
 	std::cout << "Writing Nexus File to: \n" << commit_path << filename << "\n";
 	error = m.NexusOut(commit_path, filename);
@@ -244,9 +251,8 @@ int CompareCommits::CommitCompareAllGit(
 	}
 
 	SimilarityMatrix m = SimilarityMatrix(reposize);
-	std::string extension = ".zip";
 
-	IterateOverDirectory(m, commit_path, extension, repo_name);
+	m = IterateOverDirectory(m, commit_path, ".zip", repo_name);
 
 	std::cout << "Writing NEXUS File to: \n" << commit_path << filename << "\n";
 	error = m.NexusOut(commit_path, filename);
@@ -288,22 +294,22 @@ int CompareCommits::CommitCompareVector(
 		fs::path file;
 		fs::path previousfile;
 		double similarity = -1;
-		std::string extension = ".zip";
+
 		/* for each item in vector compare with all other items in vector */
 		for (auto &commit1 : commits)
 		{
 			for (auto &commit2 : commits)
 			{
-				commit1_path = commit_path + "/" + commit1 + extension;
-				commit2_path = commit_path + "/" + commit2 + extension;
+				/* build filepaths */
+				commit1_path = commit_path + "/" + commit1 + ".zip";
+				commit2_path = commit_path + "/" + commit2 + ".zip";
 				previousfile.assign(commit1_path);
 				file.assign(commit2_path);
 
 				/* if both paths exist and file extensions are zip */
-				if (exists(file)
-						&& exists(previousfile)
-						&& extension.compare(file.extension().string()) == 0
-						&& extension.compare(previousfile.extension().string()) == 0)
+				bool fileIsZip = file.extension().string().compare(".zip") == 0;
+				bool previousfileIsZip = previousfile.extension().string().compare(".zip") == 0;
+				if (exists(file) && exists(previousfile) && fileIsZip && previousfileIsZip)
 				{
 					commit1_hash = previousfile.stem().string();
 					commit2_hash = file.stem().string();
