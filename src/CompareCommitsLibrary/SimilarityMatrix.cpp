@@ -12,6 +12,12 @@
 #include <iomanip>
 #include <regex>
 #include <exception>
+#include <sstream>
+
+SimilarityMatrix::SimilarityMatrix() :
+	mSize(1),
+	mData(std::vector<double> (1)),
+	commithashindexmap(HASHINDEX_MAP{}) {}
 
 SimilarityMatrix::SimilarityMatrix(unsigned long size)
 {
@@ -158,41 +164,70 @@ void SimilarityMatrix::NexusOut(std::string output_path, std::string filename)
 }
 
 
+std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m)
+{
+	os << m.size() << " x " << m.size() << std::endl;
+
+	for (auto elem : m.getMap())
+	{
+		os << elem.first << " " << elem.second << std::endl;
+	}
+
+	for (auto i = 0; i != m.getData().size(); i++)
+	{
+		if (i % m.size() == 0)
+			os << "\n"; //new line when at end of row
+		os << m.getData().at(i) << " ";
+	}
+
+	return os;
+}
+
+
 std::istream& operator>>(std::istream &is, SimilarityMatrix &m)
 {
-	// TODO code istream operator
-	//char a;
-	//char b;
-	//std::string hash1;
-	//std::string hash2;
-	//double similarity;
-	//std::string line;
+	//TODO simple read in, could be improved
+	std::vector<std::string> labels;
+	std::vector<double> matrix;
+	std::string labelstring;
+	std::string matrixstring;
 
-	// if( std::getline(is, line) )
-	// {
-	// 	std::stringstream iss(line);
-	// 	if (iss >> hash1 >> a >> hash2 >> b  >> similarity)
-	// 	{
-	// 		if (a == ',' && b == ',')
-	// 		{
-	// 			/* remove leading and trailing whitespace */
-	// 			hash1 = std::regex_replace(hash1, std::regex("^ +| +$|( ) +"), "$1");
-	// 			hash2 = std::regex_replace(hash2, std::regex("^ +| +$|( ) +"), "$1");
-	// 			m.add(hash1, hash2, similarity);
-	// 		}
-	// 		else
-	// 		{
-	// 			is.setstate(std::ios::failbit);
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		is.setstate(std::ios::failbit);
-	// 	}
-	// }
-	// else
-	// {
-	// 	is.setstate(std::ios::failbit);
-	// }
+	/* read in using [ ] as start and end of lines */
+	is.ignore(INT_MAX, '[');
+	std::getline(is, labelstring, ']');
+	is.ignore(INT_MAX, '[');
+	std::getline(is, matrixstring, ']');
+
+	/* remove \n */
+	labelstring.erase(std::remove(labelstring.begin(), labelstring.end(), '\n'), labelstring.end());
+	matrixstring.erase(std::remove(matrixstring.begin(), matrixstring.end(), '\n'), matrixstring.end());
+
+	/* add to vectors */
+	std::stringstream sslabels(labelstring);
+	std::stringstream ssmatrix(matrixstring);
+	while (sslabels.good())
+	{
+		std::string label;
+		getline(sslabels, label, ',');
+		labels.push_back(label);
+	}
+	while (ssmatrix.good())
+	{
+		std::string elements;
+		getline(ssmatrix, elements, ',');
+		matrix.push_back(std::stod(elements));
+	}
+
+	/* add to SimilarityMatrix */
+	m = SimilarityMatrix(static_cast<unsigned long>(labels.size()));
+	for (auto i=0; i != labels.size(); i++)
+	{
+		for (auto j=0; j != labels.size(); j++)
+		{
+			m.add(labels.at(i), labels.at(j), matrix.at(i*labels.size()+j));
+		}
+	}
+
+
 	return is;
 }

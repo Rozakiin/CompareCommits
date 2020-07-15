@@ -26,6 +26,11 @@ typedef std::map<std::string, unsigned long long> HASHINDEX_MAP;
 class SimilarityMatrix {
 public:
 	/*******************************************************************************
+	 * Default constructor for SimilarityMatrix.
+	 ******************************************************************************/
+	SimilarityMatrix();
+	
+	/*******************************************************************************
 	 * Constructor for SimilarityMatrix.
 	 *
 	 * @param size
@@ -165,24 +170,7 @@ inline HASHINDEX_MAP const& SimilarityMatrix::getMap() const
  * @param m reference to SimilarityMatix to read from
  * @return reference to ostream
  ******************************************************************************/
-inline std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m)
-{
-	os << m.size() << " x " << m.size() << std::endl;
-
-	for (auto elem : m.getMap())
-	{
-		os << elem.first << " " << elem.second << std::endl;
-	}
-
-	for (unsigned long long i = 0; i != m.getData().size(); i++)
-	{
-		if (i % m.size() == 0)
-			os << "\n"; //new line when at end of row
-		os << m.getData().at(i) << " ";
-	}
-
-	return os;
-}
+std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m);
 
 /*******************************************************************************
  * Take in NEXUS formated data, save data to given SimilarityMatrix.
