@@ -360,8 +360,7 @@ int main(int argc, char* argv[])
 			std::cout << desc << "\n";
 			return 1;
 		}
-
-		if (vm.count("version"))
+		else if (vm.count("version"))
 		{
 			std::cout << "CompareCommits Version: " << CompareCommits::VersionNo << "\n";
 			return 1;
@@ -374,7 +373,8 @@ int main(int argc, char* argv[])
 		int error;
 
 		/* Print out options being ran */
-		std::cout << "Attempting to run with options:\n" <<
+		std::cout << 
+				"Attempting to run with options:\n" <<
 				"Repository Path: " << repo_path << "\n" <<
 				"Repository Name: " << repo_name << "\n" <<
 				"Commit Path: " << commit_path << "\n" <<
@@ -383,7 +383,7 @@ int main(int argc, char* argv[])
 				"List of Commits Path: " << input_file_path << "\n" <<
 				"Output File: " << filename << "\n" ;
 
-		if (start_commit_hash != "" && end_commit_hash != "" && repo_path != "" && repo_name != "")
+		if (!start_commit_hash.empty() && !end_commit_hash.empty() && !repo_path.empty() && !repo_name.empty())
 		{
 			error = dcc.CommitCompareStartEnd(
 					filename,
@@ -393,7 +393,7 @@ int main(int argc, char* argv[])
 					start_commit_hash,
 					end_commit_hash);
 		}
-		else if (input_file_path != "" && repo_path != "" && repo_name != "")
+		else if (!input_file_path.empty() && !repo_path.empty() && !repo_name.empty())
 		{
 			std::vector<std::string> commits;
 			std::string line;
@@ -428,7 +428,7 @@ int main(int argc, char* argv[])
 				return -1; //FIXME tempfix
 			}
 		}
-		else if (repo_path != "" && repo_name != "")
+		else if (!repo_path.empty() && !repo_name.empty())
 		{
 			error = dcc.CommitCompareAllGit(
 					filename,
@@ -445,8 +445,7 @@ int main(int argc, char* argv[])
 
 		if (error != 0 )
 		{
-			std::cerr << "Error occurred during execution \n";
-			std::cerr << "Error: " << error << "\n";
+			std::cerr << "Error occurred during execution\n Error: " << error << "\n";
 			return -1;
 		}
 	}

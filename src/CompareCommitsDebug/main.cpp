@@ -7,7 +7,7 @@
 // *****************************************************************************
 
 #include "CompareCommitsLibrary/CompareCommits.hpp"
-
+#include <sstream>
 /*******************************************************************************
  * Derrived Class from CompareCommits for debugging use.
  ******************************************************************************/
@@ -51,6 +51,14 @@ public:
 int main(int argc, char* argv[])
 {
     DebugCompareCommits dcc;
-    dcc.CommitCompareAllGit("test1", "TestGitRepository", "C:/Users/Ru/Documents/Work/Projects/Git2Zip/TestGitRepository", "C:/Users/Ru/Documents/Work/Projects/Git2Zip/TestGitRepositoryCommits1");
+	SimilarityMatrix m;
+
+	std::ifstream is("C:/Users/Ru/Documents/Work/Projects/testmatrix.txt");
+
+	is >> m;
+
+	std::cout << m << std::endl;
+
+    //dcc.CommitCompareAllGit("test1", "TestGitRepository", "C:/Users/Ru/Documents/Work/Projects/Git2Zip/TestGitRepository", "C:/Users/Ru/Documents/Work/Projects/Git2Zip/TestGitRepositoryCommits1");
     //dcc.CommitCompareAllGit("test1", "TestGitRepository", "C:/Users/Ru/Documents/Work/Projects/Git2Zip/TestGitRepository", "C:/Users/Ru/Documents/Work/Projects/Git2Zip/TestGitRepositoryCommits");
 }
