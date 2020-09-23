@@ -55,6 +55,7 @@ set(Boost_USE_STATIC_LIBS        ON) #on works?
 set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME     OFF)
 set(BOOST_ALL_DYN_LINK           OFF)   # force dynamic linking for all libraries
+set(Boost_ARCHITECTURE           -x64)
 
 # Find Boost
 find_package(Boost 1.73 REQUIRED COMPONENTS program_options)
