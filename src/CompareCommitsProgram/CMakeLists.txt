@@ -19,7 +19,7 @@ message("Boost libs are ${Boost_LIBRARIES}")
 if (Boost_FOUND)
 
     #add_definitions(-DBOOST_ALL_NO_LIB)  # tell the compiler to undefine this boost macro
-    include_directories(${Boost_INCLUDE_DIR})
+    include_directories(SYSTEM ${Boost_INCLUDE_DIR})
     link_directories(${Boost_LIBRARY_DIRS})
 
     add_executable(${PROJECT_NAME} 
@@ -30,5 +30,21 @@ if (Boost_FOUND)
     target_link_libraries(${PROJECT_NAME} PUBLIC
         CompareCommitsLibrary
         ${Boost_LIBRARIES}
+    )
+
+    # enable compiler options for msvc, gccc, and clang
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+            -Werror
+            -Wall
+            -pedantic-errors
+            -Wextra
+            -Wconversion
+            -Wsign-conversion
+            >
+        $<$<CXX_COMPILER_ID:MSVC>:
+            /WX
+            /W4
+            >
     )
 endif()
