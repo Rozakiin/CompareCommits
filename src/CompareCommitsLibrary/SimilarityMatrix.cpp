@@ -13,6 +13,7 @@
 #include <regex>
 #include <exception>
 #include <sstream>
+#include <climits>
 
 SimilarityMatrix::SimilarityMatrix() :
 	mSize(1),
@@ -173,7 +174,7 @@ std::ostream& operator<<(std::ostream &os, const SimilarityMatrix &m)
 		os << elem.first << " " << elem.second << std::endl;
 	}
 
-	for (auto i = 0; i != m.getData().size(); i++)
+	for (std::size_t i = 0; i != m.getData().size(); i++)
 	{
 		if (i % m.size() == 0)
 			os << "\n"; //new line when at end of row
@@ -220,9 +221,9 @@ std::istream& operator>>(std::istream &is, SimilarityMatrix &m)
 
 	/* add to SimilarityMatrix */
 	m = SimilarityMatrix(static_cast<unsigned long>(labels.size()));
-	for (auto i=0; i != labels.size(); i++)
+	for (std::size_t i=0; i != labels.size(); i++)
 	{
-		for (auto j=0; j != labels.size(); j++)
+		for (std::size_t j=0; j != labels.size(); j++)
 		{
 			m.add(labels.at(i), labels.at(j), matrix.at(i*labels.size()+j));
 		}

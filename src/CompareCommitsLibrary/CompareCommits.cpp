@@ -71,7 +71,7 @@ SimilarityMatrix CompareCommits::IterateOverDirectory(
 										<< commit2_filename << ", "
 										<< repo_name << ")\n" 
 										<< "Error " << similarity << "\n";
-								return static_cast<int>(similarity);
+								throw std::runtime_error("CompareTwoCommits returned " + std::to_string(similarity));
 							}
 						}
 						catch(const std::exception& e)
